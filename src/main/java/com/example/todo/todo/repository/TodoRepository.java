@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.example.todo.todo.entity.Todo;
+import com.example.todo.todo.mapper.TodoMapper;
+
 @Repository
 public class TodoRepository {
     private final TodoMapper todoMapper;
