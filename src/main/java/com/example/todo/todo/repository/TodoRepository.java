@@ -15,7 +15,7 @@ public class TodoRepository {
         this.todoMapper = todoMapper;
     }
 
-    public List<Todo> getTodoId(long todoId) {
+    public List<Todo> getTodoId() {
         return todoMapper.selectAllTodo();
     }
 
