@@ -15,8 +15,8 @@ public class TodoService {
         this.todoRepository = todoRepository;
     }
 
-    public List<Todo> getAllTodos(long todoId) {
-        return todoRepository.getTodoId(todoId);
+    public List<Todo> getAllTodos() {
+        return todoRepository.getTodoId();
     }
 
     public void createTodo(Todo todo) {
