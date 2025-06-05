@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{Layout :: head(ToDoList)}">
-    <link rel="stylesheet" href="/css/todo-list.css">
-</head>
+<head th:replace="~{layout :: head(ToDoList)}"></head>
 
 <body>
     <div th:replace="~{layout :: header}"></div>
     <h3>ToDo</h3>
-    <form action="/add" method="post">
-        <label for="task">新しいタスクを追加:</label>
-        <input type="text" id="new-task" placeholder="新しいタスクを入力">
+    <form th:action="@{/new}" th:object="${todo}" method="post">
+        <label for="todo">新しいタスクを追加:</label>
+        <input type="text" id="todo" name="todo" th:field="*{title}">
         <button type="submit">追加</button>
     </form>
     <table>
@@ -25,7 +23,7 @@
         <tr th:each="todo : ${incompleteTodos}">
             <td>
                 <form th:action="@{/complete}" method="post">
-                    <input type="checkbox" name="todoid" th:value="${todoId}" onchange="this.form.submit()">
+                    <input type="checkbox" name="todoid" th:value="${todo.todoId}" onchange="this.form.submit()">
                 </form>
             </td>
             <td th:text="${todo.date}"></td>

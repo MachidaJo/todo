@@ -3,18 +3,18 @@
 <head th:fragment="head(title)">
     <meta charset="UTF-8">
     <title th:text="${title}">Title</title>
+    <link rel="stylesheet" th:href="@{/css/todo-list.css}">
 </head>
 <body>
     <div th:fragment="header">
         <header style="background-color: #f8f8f8;">
-            <img src="images/icon.png" alt="アイコン">
-            <h4>ToDoList</h4>
+            <img src="/images/icon.png" alt="アイコン">
+            <h1>ToDoList</h1>
         </header>
     </div>
     <div th:fragment="footer">
         <footer style="background-color: #f8f8f8; text-align: center;">
-            <p>&copy; ToDoList</p>
-            <p>Created By Team4</p>
+            <p>&copy; ToDoList, Created By Team4</p>
         </footer>
     </div>
 </body>
