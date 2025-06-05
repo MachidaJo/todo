@@ -4,12 +4,12 @@
 
 <body>
     <div th:replace="~{layout :: header}"></div>
-    <h3>ToDo</h3>
-    <form th:action="@{/new}" th:object="${todo}" method="post">
-        <label for="todo">新しいタスクを追加:</label>
+    <form th:action="@{todo/new}" th:object="${todo}" method="post">
+        <label for="todo">新しいタスクを追加：</label>
         <input type="text" id="todo" name="todo" th:field="*{title}">
         <button type="submit">追加</button>
     </form>
+    <h3>ToDo</h3>
     <table>
         <thead>
             <tr>
