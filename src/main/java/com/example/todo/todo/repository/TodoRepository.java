@@ -23,6 +23,10 @@ public class TodoRepository {
         todoMapper.insertTodo(todo);
     } 
 
+    public void completed(boolean completed) {
+        todoMapper.completed(completed);
+    }
+
     public void deleteTodoById(long todoId) {
         todoMapper.deleteTodoById(todoId);  
     }
