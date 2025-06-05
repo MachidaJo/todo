@@ -17,6 +17,15 @@ table {
 label {
     font-size: 18px;
 }
+
+.fixed-width {
+  width: 100px;
+}
+
+.auto-width {
+  
+}
+
 th, td{
     padding: 1px;
     border: 1px solid #ddd;
