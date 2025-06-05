@@ -20,14 +20,14 @@
             </tr>
         </thead>
         <tbody>
-        <tr th:each="todo : ${incompleteTodos}">
+        <tr th:each="todo : ${todos}">
             <td>
                 <form th:action="@{/complete}" method="post">
                     <input type="checkbox" name="todoid" th:value="${todo.todoId}" onchange="this.form.submit()">
                 </form>
             </td>
-            <td th:text="${todo.date}"></td>
-            <td th:text="${todo.content}"></td>
+            <td th:text="${todo.createdDate}"></td>
+            <td th:text="${todo.title}"></td>
             <td>
             <form th:action="@{/todo/{todoId}/delete(todoId=${todo.todoId})}" method="post">
                 <button type="submit">削除</button>
@@ -50,7 +50,7 @@
         <tbody>
             <tr th:each="todo : ${todos}">
                 <td>
-                <form th:action="@{/incomplete}" method="post">
+                <form th:action="@{/deComplete}" method="post">
                     <input type="checkbox" name="todoId" th:value="${todoId}" checked onchange="this.form.submit()">
                 </form>
                 </td>
