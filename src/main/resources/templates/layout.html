@@ -8,8 +8,10 @@
 <body>
     <div th:fragment="header">
         <header style="background-color: #f8f8f8;">
-            <img src="/images/icon.png" alt="アイコン">
-            <h1>ToDoList</h1>
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <img th:src="@{/images/icon.png}" alt="アイコン" style="margin-right: 10px;">
+                <h1>ToDoList</h1>
+            </div>
         </header>
     </div>
     <div th:fragment="footer">
