@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head(ToDoList)}"></head>
+
+<body>
+    <div th:replace="~{layout :: header}"></div>
+    <form th:action="@{todo/new}" th:object="${todo}" method="post">
+        <label for="todo">新しいタスクを追加：</label>
+        <input type="text" id="todo" name="todo" th:field="*{title}">
+        <button type="submit">追加</button>
+    </form>
+    <h3>ToDo</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>完了</th>
+                <th>作成日時</th>
+                <th>内容</th>
+                <th>削除</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr th:each="todo : ${todos}">
+            <th:block th:if="${todo.completed == FALSE}">
+                <td>
+                    <form th:action="@{todo/{todoId}/complete(todoId=${todo.todoId})}" method="post">
+                        <input type="checkbox" name="todoid" th:value="${todo.todoId}" onchange="this.form.submit()">
+                    </form>
+                </td>
+                <td th:text="${todo.createdDate}"></td>
+                <td th:text="${todo.title}"></td>
+                <td>
+                    <form th:action="@{/todo/{todoId}/delete(todoId=${todo.todoId})}" method="post">
+                        <button type="submit">削除</button>
+                    </form>
+                </td>
+            </th:block> 
+        </tr>
+        </tbody>
+    </table>
+
+    <h3>Done</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>完了</th>
+                <th>作成日時</th>
+                <th>内容</th>
+                <th>削除</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="todo : ${todos}">
+                <th:block th:if="${todo.completed == TRUE}">
+                    <td>
+                        <form th:action="@{todo/{todoId}/deComplete(todoId=${todo.todoId})}" method="post">
+                            <input type="checkbox" name="todoId" th:value="${todoId}" checked onchange="this.form.submit()">
+                        </form>
+                        </td>
+                        <td th:text="${todo.createdDate}"></td>
+                        <td th:text="${todo.title}"></td>
+                        <td>
+                        <form th:action="@{/todo/{todoId}/delete(todoId=${todo.todoId})}" method="post">
+                            <button type="submit">削除</button>
+                        </form>
+                    </td>
+                </th:block>
+            </tr>
+        </tbody>
+    </table>
+    <div th:replace="~{layout :: footer}"></div>
+</body>
+</html>
