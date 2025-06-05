@@ -36,6 +36,16 @@ public class TodoController {
         todoService.createTodo(todo);
         return "redirect:/todo";
     }
+    
+    @PostMapping("{todoId}/complete")
+    public String completeTodo(@PathVariable long todoId) {
+        todoService.completed(todoId);
+    }
+
+    @PostMapping("{todoId}/deComplete")
+    public String deCompleteTodo(@PathVariable long todoId) {
+        todoService.deCompleted(todoId);
+    }
 
     @PostMapping("{todoId}/delete")
     public String deleteTodo(@PathVariable long todoId) {
