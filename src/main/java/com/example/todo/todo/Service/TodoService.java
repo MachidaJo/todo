@@ -25,14 +25,12 @@ public class TodoService {
         todoRepository.insertTodo(todo);
     }
 
-    public void completed(boolean completed) {
-        
-        if(completed == true) {
-            completed = false;
-        }else if(completed == false) {
-            completed = true;
-        }
-        todoRepository.completed(completed);
+    public void completed(long todoId) {
+        todoRepository.completed(todoId, true);
+    }
+
+    public void deCompleted(long todoId) {
+        todoRepository.completed(todoId, false);
     }
 
     public void deleteTodo(long todoId) {
