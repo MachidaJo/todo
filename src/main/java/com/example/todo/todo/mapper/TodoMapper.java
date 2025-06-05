@@ -20,7 +20,7 @@ public interface TodoMapper {
     List<Todo> selectAllTodo();
 
     // 一件削除
-    @Delete("DELETE FROM todoTodo WHERE todoId = #{todoId}")
+    @Delete("DELETE FROM todo WHERE todoId = #{todoId}")
     void deleteTodoById(long todoId);
 
     // 一件追加
