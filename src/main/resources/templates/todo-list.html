@@ -16,7 +16,7 @@
                 <th>完了</th>
                 <th>作成日時</th>
                 <th>内容</th>
-                <th></th>
+                <th>削除</th>
             </tr>
         </thead>
         <tbody>
@@ -44,24 +44,24 @@
                 <th>完了</th>
                 <th>作成日時</th>
                 <th>内容</th>
-                <th></th>
+                <th>削除</th>
             </tr>
         </thead>
         <tbody>
-             <tr th:each="todo : ${completedTodos}">
+            <tr th:each="todo : ${todos}">
                 <td>
                 <form th:action="@{/incomplete}" method="post">
                     <input type="checkbox" name="todoId" th:value="${todoId}" checked onchange="this.form.submit()">
                 </form>
-            </td>
-             <td th:text="${todo.date}"></td>
-             <td th:text="${todo.content}"></td>
-             <td>
-            <form th:action="@{/todo/{todoId}/delete(todoId=${todo.todoId})}" method="post">
-                <button type="submit">削除</button>
-            </form>
-            </td>
-        </tr>
+                </td>
+                <td th:text="${todo.createdDate}"></td>
+                <td th:text="${todo.title}"></td>
+                <td>
+                <form th:action="@{/todo/{todoId}/delete(todoId=${todo.todoId})}" method="post">
+                    <button type="submit">削除</button>
+                </form>
+                </td>
+            </tr>
         </tbody>
     </table>
     <div th:replace="~{layout :: footer}"></div>
