@@ -1,5 +1,6 @@
 package com.example.todo.todo.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ public class TodoService {
     }
 
     public void createTodo(Todo todo) {
+        todo.setCreatedDate(LocalDate.now());
         todoRepository.insertTodo(todo);
     }
 
