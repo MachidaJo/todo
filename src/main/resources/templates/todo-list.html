@@ -22,19 +22,19 @@
         <tbody>
         <tr th:each="todo : ${todos}">
             <th:block th:if="${todo.completed == FALSE}">
-            <td>
-                 <form th:action="@{/todo/{todoId}/complete(todoId=${todo.todoId})}" method="post">
-                    <input type="checkbox" name="todoId" th:value="${todo.todoId}" onchange="this.form.submit()">
-                </form>
-            </td>
-            <td th:text="${todo.createdDate}"></td>
-            <td th:text="${todo.title}"></td>
-            <td>
-            <form th:action="@{/todo/{todoId}/delete(todoId=${todo.todoId})}" method="post">
-                <button type="submit">削除</button>
-            </form>
-            </td>
-            </th:block>
+                <td>
+                    <form th:action="@{todo/{todoId}/complete(todoId=${todo.todoId})}" method="post">
+                        <input type="checkbox" name="todoid" th:value="${todo.todoId}" onchange="this.form.submit()">
+                    </form>
+                </td>
+                <td th:text="${todo.createdDate}"></td>
+                <td th:text="${todo.title}"></td>
+                <td>
+                    <form th:action="@{/todo/{todoId}/delete(todoId=${todo.todoId})}" method="post">
+                        <button type="submit">削除</button>
+                    </form>
+                </td>
+            </th:block> 
         </tr>
         </tbody>
     </table>
@@ -52,18 +52,18 @@
         <tbody>
             <tr th:each="todo : ${todos}">
                 <th:block th:if="${todo.completed == TRUE}">
-                <td>
-                 <form th:action="@{/todo/{todoId}/decomplete(todoId=${todo.todoId})}" method="post">
-                    <input type="checkbox" name="todoId" th:value="${todoId}" checked onchange="this.form.submit()">
-                </form>
-                </td>
-                <td th:text="${todo.createdDate}"></td>
-                <td th:text="${todo.title}"></td>
-                <td>
-                <form th:action="@{/todo/{todoId}/delete(todoId=${todo.todoId})}" method="post">
-                    <button type="submit">削除</button>
-                </form>
-                </td>
+                    <td>
+                        <form th:action="@{todo/{todoId}/deComplete(todoId=${todo.todoId})}" method="post">
+                            <input type="checkbox" name="todoId" th:value="${todoId}" checked onchange="this.form.submit()">
+                        </form>
+                        </td>
+                        <td th:text="${todo.createdDate}"></td>
+                        <td th:text="${todo.title}"></td>
+                        <td>
+                        <form th:action="@{/todo/{todoId}/delete(todoId=${todo.todoId})}" method="post">
+                            <button type="submit">削除</button>
+                        </form>
+                    </td>
                 </th:block>
             </tr>
         </tbody>
