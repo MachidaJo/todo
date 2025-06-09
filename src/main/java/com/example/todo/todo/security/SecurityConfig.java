@@ -17,7 +17,7 @@ public class SecurityConfig {
             .formLogin(login -> login
                 .loginProcessingUrl("/login")
                 .loginPage("/login")
-                .defaultSuccessUrl("/albums")
+                .defaultSuccessUrl("/nagomi")
                 .failureUrl("/login?error")
                 .permitAll()
             );
