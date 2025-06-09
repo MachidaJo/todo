@@ -9,7 +9,7 @@
         <input type="text" id="todo" name="todo" th:field="*{title}" required>
         <button type="submit">追加</button>
     </form>
-    <h3>ToDo</h3>
+    <h3>ToDo<span id="incompleteCount"></span></h3>
     <table>
         <thead>
             <tr>
@@ -38,9 +38,101 @@
         </tr>
         </tbody>
     </table>
+    <div id="折りたたみB">
+    <div class="image-text-container">
+    <h3 href="javascript:void(0)" onclick="dd('折りたたみ指示B')"><img src="/images/triangleleft_83849.png" id="折りたたみ指示Bi" style=" margin-right: 30px; 
+    width: 15px; height: 15px;" alt="右三角印">Done<span id="completedCount"></span></h3>
+    </div>
+    <script th:inline="javascript">
+new Image().src = "/images/triangleleft_83849.png";
+op="/images/triangleleft_83849.png";
+cl="/images/triangledown_83849.png";
+function dd(obj){
 
-    <h3>Done</h3>
-    <table>
+if(document.getElementById)
+{document.getElementById(obj)
+.style.display=='none'?document.getElementById(obj)
+.style.display='':document.getElementById(obj)
+.style.display='none';
+document.getElementById(obj+"i").src.indexOf('triangledown_83849')>0?
+document.getElementById(obj+"i").src=op:
+document.getElementById(obj+"i").src=cl
+
+} else if(document.all){
+document.all(obj).style.display=='none'?
+document.all(obj).style.display='':document.all(obj).style.display='none';
+document.all(obj+"i").src.indexOf('triangledown_83849')>0?
+document.all(obj+"i").src=op:document.all(obj+"i").src=cl
+
+} else if(document.layers){
+document.layers[obj].display=='none'?
+document.layers[obj].display='':document.layers[obj].display='none';
+document.layers[obj+"i"].src.indexOf('triangledown_83849')>0?
+document.layers[obj+"i"].src=op:document.layers[obj+"i"].src=cl
+}
+}
+
+function updateCounts() {
+  updateCompletedCount();
+  updateIncompleteCount();
+}
+
+function countIncompleteRows() {
+  // テーブルを取得
+  var table = document.querySelector('table');
+
+  // テーブルのtbodyを取得
+  var tbody = table.getElementsByTagName('tbody')[0];
+
+  // 条件に合う行数をカウント
+  var incompleteRows = 0;
+  var rows = tbody.getElementsByTagName('tr');
+
+  for (var i = 0; i < rows.length; i++) {
+    var checkBox = rows[i].querySelector('input[type="checkbox"]');
+    if (checkBox && !checkBox.checked) {
+      incompleteRows++;
+    }
+  }
+
+  return incompleteRows;
+}
+
+function countCompletedRows() {
+  // テーブルを取得
+  var table = document.getElementById('折りたたみ指示B');
+
+  // テーブルのtbodyを取得
+  var tbody = table.getElementsByTagName('tbody')[0];
+
+  // 条件に合う行数をカウント
+  var completedRows = 0;
+  var rows = tbody.getElementsByTagName('tr');
+
+  for (var i = 0; i < rows.length; i++) {
+    var checkBox = rows[i].querySelector('input[type="checkbox"]');
+    if (checkBox && checkBox.checked) {
+      completedRows++;
+    }
+  }
+
+  return completedRows;
+}
+
+ function updateCompletedCount() {
+    var completedCount = countCompletedRows();
+    document.getElementById('completedCount').innerText = '(' + completedCount + '件)';
+  }
+
+  function updateIncompleteCount() {
+    var incompleteCount = countIncompleteRows();
+    document.getElementById('incompleteCount').innerText = '(' + incompleteCount + '件)';
+  }
+
+  // ページロード時に件数を更新
+  window.onload = updateCounts;
+</script>
+<table id="折りたたみ指示B">
         <thead>
             <tr>
                 <th class="fixed-width">完了</th>
@@ -68,6 +160,7 @@
             </tr>
         </tbody>
     </table>
+    </div>
     <div th:replace="~{layout :: footer}"></div>
 </body>
 </html>
