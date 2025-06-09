@@ -2,6 +2,7 @@ package com.example.todo.todo.controller;
 
 import java.util.List;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +24,8 @@ public class TodoController {
 
     @GetMapping()
     public String todo(Model model) {
-        List<Todo> todos = todoService.getAllTodos();
+        // TODO ログイン中のIDを取得したい
+        List<Todo> todos = todoService.selectAllTodoById(1L);
         Todo todo = new Todo();
 
         model.addAttribute("todos", todos);
