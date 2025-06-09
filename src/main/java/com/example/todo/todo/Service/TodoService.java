@@ -16,12 +16,12 @@ public class TodoService {
         this.todoRepository = todoRepository;
     }
 
-    public List<Todo> getAllTodos() {
-        return todoRepository.getTodoId();
+    public List<Todo> selectAllTodoById(long todoId) {
+        return todoRepository.selectAllTodoById(todoId);
     }
 
     public void createTodo(Todo todo) {
-        todo.setCreatedDate(LocalDate.now());
+        todo.setCreatedAt(LocalDate.now());
         todoRepository.insertTodo(todo);
     }
 
