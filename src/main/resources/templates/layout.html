@@ -3,13 +3,13 @@
 <head th:fragment="head(title)">
     <meta charset="UTF-8">
     <title th:text="${title}">Title</title>
+    <link rel="stylesheet" th:href="@{/css/todo-list.css}">
 </head>
 <body>
     <div th:fragment="header">
         <header style="background-color: #f8f8f8;">
             <div style="display: flex; align-items: center; justify-content: center;">
                 <img th:src="@{/images/todonagomi.png}" alt="TodoNagomiIcon" style="margin-right: 10px;">
-                <h1>ToDoList</h1>
             </div>
             <label>
                 <form th:action="@{/logout}" method="post">
