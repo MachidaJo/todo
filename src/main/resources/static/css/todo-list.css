@@ -73,8 +73,6 @@ input[type="checkbox"] {
 }
 
 img {
-    width: 100px;
-    height: 100px;
     position:relative;
     z-index: 10;
 }
