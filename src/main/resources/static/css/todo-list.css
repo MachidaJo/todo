@@ -102,3 +102,13 @@ img {
       color: red;
       font-weight: bold;
     }
+
+    .completed {
+    text-decoration: line-through; /* 取り消し線 */
+    font-style: italic;            /* 斜体 */
+    color: grey;                   /* 少し薄い色にすることで目立たなくする */
+}
+
+.warning {
+    background-color: rgb(255, 153, 0); /* 背景を黄色にして警告を示す */
+}
