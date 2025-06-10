@@ -3,19 +3,32 @@
 <head th:replace="~{layout :: head(ToDoList)}"></head>
 
 <body>
+    <img src="\images\left.take.png" alt="左の画像" class="left-image">
+    <img src="\images\right.take.png" alt="右の画像" class="right-image">
+    <script th:src="@{/js/Count.js}"></script>
+    <script th:src="@{/js/oritatami.js}"></script>
+    <script th:src="@{/js/reload.js}"></script>
     <div th:replace="~{layout :: header}"></div>
     <form th:action="@{todo/new}" th:object="${todo}" method="post">
         <label for="todo">新しいタスクを追加：</label>
         <input type="text" id="todo" name="todo" th:field="*{title}" required>
+        <label for="todo">完了予定日を入力：</label>
+        <input type="date" name="todo">
+        <input type="radio" name="priority" value="null" checked>無
+        <input type="radio" name="priority" value="high">高
+        <input type="radio" name="priority" value="middle">中
+        <input type="radio" name="priority" value="low">低
+
         <button type="submit">追加</button>
     </form>
-    <h3>ToDo</h3>
+    <h3>ToDo<span id="incompleteCount"></span></h3>
     <table>
         <thead>
             <tr>
                 <th class="fixed-width">完了</th>
-                <th class="fixed-width">作成日時</th>
-                <th class="auto-width">内容</th>
+                <th class="fixed-width">優先度</th>
+                <th class="fixed-width">予定日</th>
+                <th class="auto-width">タイトル</th>
                 <th class="fixed-width">削除</th>
             </tr>
         </thead>
@@ -23,14 +36,15 @@
         <tr th:each="todo : ${todos}">
             <th:block th:if="${todo.completed == FALSE}">
                 <td>
-                    <form th:action="@{todo/{todoId}/complete(todoId=${todo.todoId})}" method="post">
+                    <form th:action="@{nagomi/{todoId}/complete(todoId=${todo.todoId})}" method="post">
                         <input type="checkbox" name="todoid" th:value="${todo.todoId}" onchange="this.form.submit()">
                     </form>
                 </td>
+                <td>無</td>
                 <td th:text="${todo.createdDate}"></td>
                 <td th:text="${todo.title}"></td>
                 <td>
-                    <form th:action="@{/todo/{todoId}/delete(todoId=${todo.todoId})}" method="post">
+                    <form th:action="@{/nagomi/{todoId}/delete(todoId=${todo.todoId})}" method="post">
                         <button type="submit">削除</button>
                     </form>
                 </td>
@@ -38,14 +52,19 @@
         </tr>
         </tbody>
     </table>
+    <div id="折りたたみB">
+    <div class="image-text-container">
+    <h3 href="javascript:void(0)" onclick="dd('折りたたみ指示B')"><img src="/images/triangleleft_83849.png" id="折りたたみ指示Bi" style=" margin-right: 30px; 
+    width: 15px; height: 15px;" alt="右三角印">Done<span id="completedCount"></span></h3>
+    </div>
 
-    <h3>Done</h3>
-    <table>
+<table id="折りたたみ指示B">
         <thead>
             <tr>
                 <th class="fixed-width">完了</th>
-                <th class="fixed-width">作成日時</th>
-                <th class="auto-width">内容</th>
+                <th class="fixed-width">優先度</th>
+                <th class="fixed-width">完了日</th>
+                <th class="auto-width">タイトル</th>
                 <th class="fixed-width">削除</th>
             </tr>
         </thead>
@@ -53,14 +72,15 @@
             <tr th:each="todo : ${todos}">
                 <th:block th:if="${todo.completed == TRUE}">
                     <td>
-                        <form th:action="@{todo/{todoId}/deComplete(todoId=${todo.todoId})}" method="post">
+                        <form th:action="@{nagomi/{todoId}/deComplete(todoId=${todo.todoId})}" method="post">
                             <input type="checkbox" name="todoId" th:value="${todoId}" checked onchange="this.form.submit()">
                         </form>
                         </td>
+                        <td>無</td>
                         <td th:text="${todo.createdDate}"></td>
                         <td th:text="${todo.title}"></td>
                         <td>
-                        <form th:action="@{/todo/{todoId}/delete(todoId=${todo.todoId})}" method="post">
+                        <form th:action="@{/nagomi/{todoId}/delete(todoId=${todo.todoId})}" method="post">
                             <button type="submit">削除</button>
                         </form>
                     </td>
@@ -68,6 +88,7 @@
             </tr>
         </tbody>
     </table>
+    </div>
     <div th:replace="~{layout :: footer}"></div>
 </body>
 </html>
