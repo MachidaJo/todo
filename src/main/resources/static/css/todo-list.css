@@ -97,3 +97,8 @@ img {
             width: 20%; 
             opacity: 0.5;
         }
+
+        .expired {
+      color: red;
+      font-weight: bold;
+    }
