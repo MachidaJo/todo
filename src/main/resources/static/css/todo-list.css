@@ -59,7 +59,6 @@ h3 {
 }
 
 form {
-    display: flex;
     justify-content: center;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -119,4 +118,8 @@ td img {
     width: 20px;
     /* 優先度アイコンの大きさ */
     height: auto;
+}
+
+.logout {
+    margin: 100;
 }

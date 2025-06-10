@@ -10,11 +10,13 @@ div {
   padding: 10px;
     border: 1px solid #333;
     background: #f2f2f2;
-    width: 50%;
+    width: 40%;
+    margin: 0 auto;
 }
 
 .stuff {
   width: 25vw;
+  margin: 0 auto;
 }
 
 .textBox {
@@ -25,6 +27,7 @@ div {
   display: inline-flex;
   margin-bottom: 3vh;
 }
+
 .textBox .text {
   font-weight: 500;
   width: calc(100% - 2vw);
