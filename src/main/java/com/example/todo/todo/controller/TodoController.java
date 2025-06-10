@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.todo.todo.Service.TodoService;
 import com.example.todo.todo.entity.Todo;
@@ -24,10 +25,18 @@ public class TodoController {
     }
 
     @GetMapping()
-    public String nagomi(@AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
+    public String nagomi(@AuthenticationPrincipal CustomUserDetails userDetails, Model model,
+                         @RequestParam(value = "sort", required = false) String sort) {
+
         List<Todo> todos = todoService.selectAllTodoById(userDetails.getUserId());
-        
         Todo todo = new Todo();
+        
+        // 優先度でソートする
+        if (sort != null && sort.equals("priority")) {
+            todos = todos.stream()
+                    .sorted((x, y) -> x.getPriority() - y.getPriority())
+                    .toList();
+        }
 
         model.addAttribute("todos", todos);
         model.addAttribute("todo", todo);
