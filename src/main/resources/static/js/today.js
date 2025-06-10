@@ -1,12 +1,16 @@
-    function getCurrentTime() {
-      const checkbox = document.getElementById('timeCheckbox');
-      const timeDisplay = document.getElementById('timeDisplay');
+  function getCurrentDate() {
+  const checkbox = document.getElementById('timeCheckbox');
+  const dateDisplay = document.getElementById('dateDisplay'); // timeDisplay から名前を変更
 
-      if (checkbox.checked) {
-        const now = new Date();
-        const formattedTime = now.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-        timeDisplay.textContent = `現在時刻: ${formattedTime}`;
-      } else {
-        timeDisplay.textContent = 'チェックを外しました';
-      }
-    }
+  if (checkbox.checked) {
+    const now = new Date();
+    const formattedDate = now.toLocaleDateString('ja-JP', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    });
+    dateDisplay.textContent = `現在の日付: ${formattedDate}`;
+  } else {
+    dateDisplay.textContent = 'チェックを外しました';
+  }
+}
