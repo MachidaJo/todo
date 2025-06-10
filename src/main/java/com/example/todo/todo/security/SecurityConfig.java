@@ -16,10 +16,14 @@ public class SecurityConfig {
                 .requestMatchers("/css/**", "/images/**", "/js/**", "/register/**").permitAll()
                 .anyRequest().authenticated())
             .formLogin(login -> login
-                //.loginProcessingUrl("/login")
+                .loginProcessingUrl("/login")
                 .loginPage("/login")
                 .defaultSuccessUrl("/nagomi")
                 .failureUrl("/login?error")
+                .permitAll()
+            )
+            .logout(logout -> logout
+                .logoutSuccessUrl("/login")
                 .permitAll()
             );
         return http.build();
