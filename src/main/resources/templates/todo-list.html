@@ -2,7 +2,7 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="~{layout :: head(ToDoList)}"></head>
-
+<link rel="stylesheet" th:href="@{/css/todo-list.css}">
 <body>
     <img src="\images\left.take.png" alt="左側の美しい竹" class="left-image">
     <img src="\images\right.take.png" alt="右側の美しい竹" class="right-image">
@@ -86,7 +86,7 @@
                 <tr>
                     <th class="fixed-width">完了</th>
                     <th class="fixed-width">優先度</th>
-                    <th class="fixed-width" id="dateDisplay">完了日</th>
+                    <th class="fixed-width">完了日</th>
                     <th class="auto-width">タイトル</th>
                     <th class="fixed-width">削除</th>
                 </tr>
@@ -106,7 +106,7 @@
                             <img th:src="@{/images/low.png}" th:if="${todo.priority == 3}" alt=3 title="低" />
                             <img th:src="@{/images/null.png}" th:if="${todo.priority == 0}" alt=0 title="無" />
                         </td>
-                        <td th:text="${todo.createdDate}" class="date"></td>
+                        <td id="dateDisplay"></td>
                         <td th:text="${todo.title}" th:classappend="${todo.completed ? 'completed' : ''}"></td>
                         <!-- 完了したタスクに斜線を引く -->
                         <td>

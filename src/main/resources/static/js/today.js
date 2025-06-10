@@ -1,6 +1,6 @@
   function getCurrentDate() {
   const checkbox = document.getElementById('timeCheckbox');
-  const dateDisplay = document.getElementById('dateDisplay'); // timeDisplay から名前を変更
+  const dateDisplay = document.getElementById('dateDisplay'); 
 
   if (checkbox.checked) {
     const now = new Date();
