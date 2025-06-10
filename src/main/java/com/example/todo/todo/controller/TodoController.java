@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.todo.todo.Service.TodoService;
 import com.example.todo.todo.entity.Todo;
-import com.example.todo.todo.entity.User;
 import com.example.todo.todo.security.CustomUserDetails;
 
 @Controller
@@ -27,6 +26,7 @@ public class TodoController {
     @GetMapping()
     public String nagomi(@AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
         List<Todo> todos = todoService.selectAllTodoById(userDetails.getUserId());
+        
         Todo todo = new Todo();
 
         model.addAttribute("todos", todos);
@@ -37,8 +37,8 @@ public class TodoController {
     }
 
     @PostMapping("/new")
-    public String createTodo(Todo todo) {
-        todoService.createTodo(todo);
+    public String createTodo(@AuthenticationPrincipal CustomUserDetails userDetails, Todo todo) {
+        todoService.createTodo(userDetails, todo);
         return "redirect:/nagomi";
     }
     
