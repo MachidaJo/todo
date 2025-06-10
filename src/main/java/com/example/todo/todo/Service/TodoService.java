@@ -3,10 +3,12 @@ package com.example.todo.todo.Service;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
 import com.example.todo.todo.entity.Todo;
 import com.example.todo.todo.repository.TodoRepository;
+import com.example.todo.todo.security.CustomUserDetails;
 
 @Service
 public class TodoService {
@@ -20,8 +22,10 @@ public class TodoService {
         return todoRepository.selectAllTodoById(todoId);
     }
 
-    public void createTodo(Todo todo) {
-        todo.setCreatedAt(LocalDate.now());
+    public void createTodo(@AuthenticationPrincipal CustomUserDetails userDetails, Todo todo) {
+        // ユーザーIDと未完了フラグにして作成
+        todo.setUserId(userDetails.getUserId());
+        todo.setCompleted(false);
         todoRepository.insertTodo(todo);
     }
 

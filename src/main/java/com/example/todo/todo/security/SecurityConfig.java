@@ -13,10 +13,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
        http
             .authorizeHttpRequests(request -> request
-                .requestMatchers("/css/**", "/images/**", "/js/**").permitAll()
+                .requestMatchers("/css/**", "/images/**", "/js/**", "/register/**").permitAll()
                 .anyRequest().authenticated())
             .formLogin(login -> login
-                .loginProcessingUrl("/login")
+                //.loginProcessingUrl("/login")
                 .loginPage("/login")
                 .defaultSuccessUrl("/nagomi")
                 .failureUrl("/login?error")
