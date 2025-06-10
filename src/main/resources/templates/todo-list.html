@@ -44,7 +44,7 @@
                 </td>
                 <td th:text="${todo.priority}"></td>
                 <td th:text="${todo.createdDate}" class="date">></td>
-                <td th:text="${todo.title}"></td>
+                <td th:text="${todo.title}" th:classappend="${todo.dueDate.isAfter(T(java.time.LocalDate).now()) && todo.dueDate.isBefore(T(java.time.LocalDate).now().plusDays(3)) ? 'warning' : ''}"></td>
                 <td>
                     <form th:action="@{/nagomi/{todoId}/delete(todoId=${todo.todoId})}" method="post">
                         <button type="submit">削除</button>
@@ -79,8 +79,9 @@
                         </form>
                         </td>
                         <td th:text="${todo.priority}"></td>
-                        <td th:text="${todo.createdDate}"></td>
-                        <td th:text="${todo.title}"></td>
+                        <td th:text="${todo.createdDate}" class="date"></td>
+                        <td th:text="${todo.title}" th:classappend="${todo.completed ? 'completed' : ''}"
+                        ></td>
                         <td>
                         <form th:action="@{/nagomi/{todoId}/delete(todoId=${todo.todoId})}" method="post">
                             <button type="submit">削除</button>
