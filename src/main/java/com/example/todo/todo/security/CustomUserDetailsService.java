@@ -16,15 +16,19 @@ public class CustomUserDetailsService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
+    // ログイン認証に利用するユーザを取得するメソッドをオーバーライド
+    // UserDetailsインターフェースを実装したクラスを戻り値として返す
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         User user = userRepository.selectUserByUsername(username);
 
+        // 対応するユーザ名が見つからない場合、例外となる
         if(user == null) {
             throw new UsernameNotFoundException("user not found");
         }
 
+        // 
         return new CustomUserDetails(user);
     }
 }
