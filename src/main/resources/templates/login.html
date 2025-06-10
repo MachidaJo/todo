@@ -1,24 +1,46 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{layout :: head(ログイン)}"></head>
+<!-- <link rel="stylesheet" th:href="@{/css/login.css}"> -->
 <body>
     <div th:replace="~{layout :: header}"></div>
+    <div class="border">
     <h3>ログイン</h3>
     <div th:if="${param.error}" style="color:red">
         ユーザー名、またはパスワードに誤りがあります
     </div>
     <form th:action="@{/login}" method="post">
+        <div class="stuff">
         <div class="textBox">
-            <label for="username">ユーザー名</label>
-            <input type="text" id="username" name="username">
+            <input 
+                class="text"
+                type="textbox"
+                placeholder="ユーザー名" 
+                name="username"
+                onkeyup="this.setAttribute('value', this.value);"
+                value="">
+            <label class="label">ユーザー名</label>
+            <label class="error"></label>
         </div>
         <div class="textBox">
-            <label for="password">パスワード</label>
-            <input type="text" id="password" name="password">
+            <input 
+                class="text"
+                type="password"
+                placeholder="パスワード"
+                id="password"
+                name="password"
+                onkeyup="this.setAttribute('value', this.value);"
+                value="">
+            <label class="label">パスワード</label>
+            <label class="error"></label>
         </div>
         <button type="submit">ログイン</button>
+        </div>
     </form>
-    <!-- <a th:href="@[/register]">新規登録はこちら</a> -->
+    <label>
+        <a th:href="@{/register}">新規登録はこちら</a>
+    </label>
+    </div>
     <div th:replace="~{layout :: footer}"></div>
 </body>
 </html>

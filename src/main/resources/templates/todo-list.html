@@ -1,16 +1,26 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="~{layout :: head(ToDoList)}"></head>
+
 <body>
     <img src="\images\left.take.png" alt="左側の美しい竹" class="left-image">
     <img src="\images\right.take.png" alt="右側の美しい竹" class="right-image">
+
     <script th:src="@{/js/today.js}"></script>
+    <!-- チェックボックスで現在日取得するJS -->
     <script th:src="@{/js/expiration.js}"></script>
+    <!-- 期限切れの予定日を赤く色づけするJS -->
     <script th:src="@{/js/Count.js}"></script>
+    <!-- テーブルの行数を取得するJS -->
     <script th:src="@{/js/oritatami.js}"></script>
+    <!-- Doneリストを折りたたむJS -->
     <script th:src="@{/js/reload.js}"></script>
+    <!-- スクロール位置を復元するJS -->
+
     <div th:replace="~{layout :: header}"></div>
-    <form th:action="@{todo/new}" th:object="${todo}" method="post">
+
+    <form th:action="@{nagomi/new}" th:object="${todo}" method="post">
         <label for="todo">新しいタスクを追加：</label>
         <input type="text" id="todo" name="todo" th:field="*{title}" required>
         <label for="todo">完了予定日を入力：</label>
@@ -21,6 +31,7 @@
         <input type="radio" name="priority" value=3 th:field="*{priority}">低
 
         <button type="submit">追加</button>
+
     </form>
     <h3>ToDo<span id="incompleteCount"></span></h3>
     <table>
@@ -34,54 +45,27 @@
             </tr>
         </thead>
         <tbody>
-        <tr th:each="todo : ${todos}">
-            <th:block th:if="${todo.completed == FALSE}">
-                <td>
-                    <form th:action="@{nagomi/{todoId}/complete(todoId=${todo.todoId})}" method="post">
-                        <input type="checkbox" name="todoid" th:value="${todo.todoId}"  id="timeCheckbox" onclick="getCurrentTime()" onchange="this.form.submit()">
-                    </form>
-                </td>
-                <td th:text="${todo.priority}"></td>
-                <td th:text="${todo.createdDate}" class="date">></td>
-                <td th:text="${todo.title}" th:classappend="${todo.dueDate.isAfter(T(java.time.LocalDate).now()) && todo.dueDate.isBefore(T(java.time.LocalDate).now().plusDays(3)) ? 'warning' : ''}"></td>
-                <td>
-                    <form th:action="@{/nagomi/{todoId}/delete(todoId=${todo.todoId})}" method="post">
-                        <button type="submit">削除</button>
-                    </form>
-                </td>
-            </th:block> 
-        </tr>
-        </tbody>
-    </table>
-    <div id="折りたたみB">
-    <div class="image-text-container">
-    <h3 href="javascript:void(0)" onclick="dd('折りたたみ指示B')"><img src="/images/triangleleft_83849.png" id="折りたたみ指示Bi" style=" margin-right: 30px; 
-    width: 15px; height: 15px;" alt="三角印">Done<span id="completedCount"></span></h3>
-    </div>
-
-<table id="折りたたみ指示B">
-        <thead>
-            <tr>
-                <th class="fixed-width">完了</th>
-                <th class="fixed-width">優先度</th>
-                <th class="fixed-width" id="timeDisplay">完了日</th>
-                <th class="auto-width">タイトル</th>
-                <th class="fixed-width">削除</th>
-            </tr>
-        </thead>
-        <tbody>
             <tr th:each="todo : ${todos}">
-                <th:block th:if="${todo.completed == TRUE}">
+                <th:block th:if="${todo.completed == FALSE}">
                     <td>
-                        <form th:action="@{nagomi/{todoId}/deComplete(todoId=${todo.todoId})}" method="post">
-                            <input type="checkbox" name="todoId" th:value="${todoId}" checked onchange="this.form.submit()">
+                        <form th:action="@{nagomi/{todoId}/complete(todoId=${todo.todoId})}" method="post">
+                            <input type="checkbox" name="todoid" th:value="${todo.todoId}" id="timeCheckbox"
+                                onclick="getCurrentDate()" onchange="this.form.submit()">
                         </form>
-                        </td>
-                        <td th:text="${todo.priority}"></td>
-                        <td th:text="${todo.createdDate}" class="date"></td>
-                        <td th:text="${todo.title}" th:classappend="${todo.completed ? 'completed' : ''}"
-                        ></td>
-                        <td>
+                    </td>
+                    <td>
+                        <img th:src="@{/images/high.png}" th:if="${todo.priority == 1}" alt=1 title="高" />
+                        <img th:src="@{/images/medium.png}" th:if="${todo.priority == 2}" alt="2" title="中" />
+                        <img th:src="@{/images/low.png}" th:if="${todo.priority == 3}" alt=3 title="低" />
+                        <img th:src="@{/images/null.png}" th:if="${todo.priority == 0}" alt=0 title="無" />
+                        <!-- 優先度のアイコン表示 -->
+                    </td>
+                    <td th:text="${todo.createdDate}" class="date">></td>
+                    <td th:text="${todo.title}"
+                        th:classappend="${todo.dueDate.isAfter(T(java.time.LocalDate).now()) && todo.dueDate.isBefore(T(java.time.LocalDate).now().plusDays(3)) ? 'warning' : ''}">
+                    </td>
+                    <!-- 予定日より３日前を配色する -->
+                    <td>
                         <form th:action="@{/nagomi/{todoId}/delete(todoId=${todo.todoId})}" method="post">
                             <button type="submit">削除</button>
                         </form>
@@ -90,7 +74,52 @@
             </tr>
         </tbody>
     </table>
+    <div id="折りたたみB">
+        <div class="image-text-container">
+            <h3 href="javascript:void(0)" onclick="dd('折りたたみ指示B')"><img src="/images/triangleleft_83849.png"
+                    id="折りたたみ指示Bi" style=" margin-right: 30px; 
+    width: 15px; height: 15px;" alt="三角印">Done<span id="completedCount"></span></h3>
+        </div>
+
+        <table id="折りたたみ指示B">
+            <thead>
+                <tr>
+                    <th class="fixed-width">完了</th>
+                    <th class="fixed-width">優先度</th>
+                    <th class="fixed-width" id="dateDisplay">完了日</th>
+                    <th class="auto-width">タイトル</th>
+                    <th class="fixed-width">削除</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="todo : ${todos}">
+                    <th:block th:if="${todo.completed == TRUE}">
+                        <td>
+                            <form th:action="@{nagomi/{todoId}/deComplete(todoId=${todo.todoId})}" method="post">
+                                <input type="checkbox" name="todoId" th:value="${todoId}" checked
+                                    onchange="this.form.submit()">
+                            </form>
+                        </td>
+                        <td>
+                            <img th:src="@{/images/high.png}" th:if="${todo.priority == 1}" alt=1 title="高" />
+                            <img th:src="@{/images/medium.png}" th:if="${todo.priority == 2}" alt="2" title="中" />
+                            <img th:src="@{/images/low.png}" th:if="${todo.priority == 3}" alt=3 title="低" />
+                            <img th:src="@{/images/null.png}" th:if="${todo.priority == 0}" alt=0 title="無" />
+                        </td>
+                        <td th:text="${todo.createdDate}" class="date"></td>
+                        <td th:text="${todo.title}" th:classappend="${todo.completed ? 'completed' : ''}"></td>
+                        <!-- 完了したタスクに斜線を引く -->
+                        <td>
+                            <form th:action="@{/nagomi/{todoId}/delete(todoId=${todo.todoId})}" method="post">
+                                <button type="submit">削除</button>
+                            </form>
+                        </td>
+                    </th:block>
+                </tr>
+            </tbody>
+        </table>
     </div>
     <div th:replace="~{layout :: footer}"></div>
 </body>
+
 </html>
