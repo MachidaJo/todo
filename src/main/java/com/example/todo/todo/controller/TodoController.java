@@ -2,6 +2,7 @@ package com.example.todo.todo.controller;
 
 import java.util.List;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.todo.todo.Service.TodoService;
 import com.example.todo.todo.entity.Todo;
+import com.example.todo.todo.security.CustomUserDetails;
 
 @Controller
 @RequestMapping("/nagomi")
@@ -22,19 +24,21 @@ public class TodoController {
     }
 
     @GetMapping()
-    public String nagomi(Model model) {
-        // TODO ログイン中のIDを取得したい
-        List<Todo> todos = todoService.selectAllTodoById(0L);
+    public String nagomi(@AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
+        List<Todo> todos = todoService.selectAllTodoById(userDetails.getUserId());
+        
         Todo todo = new Todo();
 
         model.addAttribute("todos", todos);
         model.addAttribute("todo", todo);
+
+
         return "todo-list";
     }
 
     @PostMapping("/new")
-    public String createTodo(Todo todo) {
-        todoService.createTodo(todo);
+    public String createTodo(@AuthenticationPrincipal CustomUserDetails userDetails, Todo todo) {
+        todoService.createTodo(userDetails, todo);
         return "redirect:/nagomi";
     }
     

@@ -24,7 +24,7 @@ public interface TodoMapper {
     void deleteTodoById(long todoId);
 
     // 一件追加
-    @Insert("INSERT INTO todo (completed, title, created_at) VALUES (FALSE, #{title}, #{createdAt})")
+    @Insert("INSERT INTO todo (user_id, completed, title, priority, completion_date, created_at) VALUES (#{userId}, #{completed}, #{title}, #{priority}, #{completionDate}, #{createdAt})")
     @Options(useGeneratedKeys = true, keyProperty = "todoId")
     void insertTodo(Todo todo);
 

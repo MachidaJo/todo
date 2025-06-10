@@ -24,7 +24,7 @@
         <label for="todo">新しいタスクを追加：</label>
         <input type="text" id="todo" name="todo" th:field="*{title}" required>
         <label for="todo">完了予定日を入力：</label>
-        <input type="date" name="todo" th:field="*{completion_date}">
+        <input type="date" name="todo" th:field="*{completionDate}">
         <input type="radio" name="priority" value=0 th:field="*{priority}" checked>無
         <input type="radio" name="priority" value=1 th:field="*{priority}">高
         <input type="radio" name="priority" value=2 th:field="*{priority}">中
@@ -60,9 +60,9 @@
                         <img th:src="@{/images/null.png}" th:if="${todo.priority == 0}" alt=0 title="無" />
                         <!-- 優先度のアイコン表示 -->
                     </td>
-                    <td th:text="${todo.createdDate}" class="date">></td>
+                    <td th:text="${todo.completionDate}" class="date"></td>
                     <td th:text="${todo.title}"
-                        th:classappend="${todo.dueDate.isAfter(T(java.time.LocalDate).now()) && todo.dueDate.isBefore(T(java.time.LocalDate).now().plusDays(3)) ? 'warning' : ''}">
+                        >
                     </td>
                     <!-- 予定日より３日前を配色する -->
                     <td>
@@ -106,7 +106,7 @@
                             <img th:src="@{/images/low.png}" th:if="${todo.priority == 3}" alt=3 title="低" />
                             <img th:src="@{/images/null.png}" th:if="${todo.priority == 0}" alt=0 title="無" />
                         </td>
-                        <td id="dateDisplay"></td>
+                        <td th:text="${todo.completionDate}" class="date"></td>
                         <td th:text="${todo.title}" th:classappend="${todo.completed ? 'completed' : ''}"></td>
                         <!-- 完了したタスクに斜線を引く -->
                         <td>
