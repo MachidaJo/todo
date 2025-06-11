@@ -64,7 +64,7 @@ public class TodoController {
         todoService.createTodo(userDetails, todo);
 
         // sortに文字が入っれいたらソート込みでリダイレクトする。
-        if (!sort.isEmpty()) {
+        if (sort != null && !sort.isEmpty()) {
             return "redirect:/nagomi?sort=" + sort;
         }
 
@@ -77,7 +77,7 @@ public class TodoController {
         todoService.completed(todoId);
 
         // sortに文字が入っれいたらソート込みでリダイレクトする。
-        if (!sort.isEmpty()) {
+        if (sort != null && !sort.isEmpty()) {
             return "redirect:/nagomi?sort=" + sort;
         }
 
