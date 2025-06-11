@@ -7,12 +7,8 @@
     <img src="\images\left.take.png" alt="左側の美しい竹" class="left-image">
     <img src="\images\right.take.png" alt="右側の美しい竹" class="right-image">
 
-    <script th:src="@{/js/today.js}"></script>
-    <!-- チェックボックスで現在日取得するJS -->
     <script th:src="@{/js/expiration.js}"></script>
     <!-- 期限切れの予定日を赤く色づけするJS -->
-    <script th:src="@{/js/Count.js}"></script>
-    <!-- テーブルの行数を取得するJS -->
     <script th:src="@{/js/oritatami.js}"></script>
     <!-- Doneリストを折りたたむJS -->
     <script th:src="@{/js/reload.js}"></script>
@@ -33,9 +29,7 @@
         <button type="submit">追加</button>
 
     </form>
-    <h3>ToDo
-        <span>(件)</span>
-    </h3>
+    <h3>ToDo[<span th:text="${notCompletedTodos.size()}"></span>件]</h3>
     <table>
         <thead>
             <tr>
@@ -47,12 +41,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="todo : ${todos}">
+            <tr th:each="todo : ${notCompletedTodos}">
                 <th:block th:if="${todo.completed == FALSE}">
                     <td>
                         <form th:action="@{nagomi/{todoId}/complete(todoId=${todo.todoId})}" method="post">
-                            <input type="checkbox" name="todoid" th:value="${todo.todoId}" id="timeCheckbox"
-                                onclick="getCurrentDate()" onchange="this.form.submit()">
+                            <input type="checkbox" name="todoid" th:value="${todo.todoId}" onchange="this.form.submit()">
                         </form>
                     </td>
                     <td>
@@ -66,7 +59,7 @@
                     <td th:text="${todo.title}"
                         >
                     </td>
-                    <!-- 予定日より３日前を配色する -->
+  
                     <td>
                         <form th:action="@{/nagomi/{todoId}/delete(todoId=${todo.todoId})}" method="post">
                             <button type="submit">削除</button>
@@ -80,7 +73,7 @@
         <div class="image-text-container">
             <h3 href="javascript:void(0)" onclick="dd('折りたたみ指示B')"><img src="/images/triangleleft_83849.png"
                     id="折りたたみ指示Bi" style=" margin-right: 30px; 
-    width: 15px; height: 15px;" alt="三角印">Done<span>(件)</span></h3>
+    width: 15px; height: 15px;" alt="三角印">Done[<span th:text="${completedTodos.size()}"></span>件]</h3>
         </div>
 
         <table id="折りたたみ指示B">
@@ -94,7 +87,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="todo : ${todos}">
+                <tr th:each="todo : ${completedTodos}">
                     <th:block th:if="${todo.completed == TRUE}">
                         <td>
                             <form th:action="@{nagomi/{todoId}/deComplete(todoId=${todo.todoId})}" method="post">
