@@ -10,7 +10,7 @@ table {
     max-width: 800px;
     margin: 0 auto;
     border-collapse: collapse;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 50px;
 }
 
@@ -19,14 +19,13 @@ label {
 }
 
 .fixed-width {
-  width: 100px;
+    width: 100px;
 }
 
-.auto-width {
-  
-}
+.auto-width {}
 
-th, td{
+th,
+td {
     padding: 1px;
     border: 1px solid #ddd;
     text-align: center;
@@ -59,8 +58,7 @@ h3 {
     margin-bottom: 10px;
 }
 
-form{
-    display: flex;
+form {
     justify-content: center;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -73,6 +71,47 @@ input[type="checkbox"] {
 }
 
 img {
-    width: 100px;
-    height: 100px;
+    position: relative;
+    z-index: 10;
+}
+
+.left-image {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 20%;
+    opacity: 0.5;
+}
+
+.right-image {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 20%;
+    opacity: 0.5;
+}
+
+.expired {
+    color: red;
+    font-weight: bold;
+}
+
+.completed {
+    text-decoration: line-through;
+    /* 取り消し線 */
+    font-style: italic;
+    /* 斜体 */
+    color: grey;
+    /* 少し薄い色にすることで目立たなくする */
+}
+
+
+td img {
+    width: 20px;
+    /* 優先度アイコンの大きさ */
+    height: auto;
 }

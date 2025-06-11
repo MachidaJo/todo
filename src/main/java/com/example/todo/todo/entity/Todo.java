@@ -7,8 +7,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Data
 public class Todo {
     private long todoId;
+    private long userId;
     private boolean completed;
     private String title;
+    private int priority;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate createdDate;
+    private LocalDate completionDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate createdAt;
 }

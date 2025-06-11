@@ -15,8 +15,12 @@ public class TodoRepository {
         this.todoMapper = todoMapper;
     }
 
-    public List<Todo> getTodoId() {
-        return todoMapper.selectAllTodo();
+    public List<Todo> selectAllTodoById(long todoId) {
+        return todoMapper.selectAllTodoById(todoId);
+    }
+
+    public List<Todo> selectAllTodoByIdAndCompletedFlag(long userId, boolean isCompleted) {
+        return todoMapper.selectAllTodoByIdAndCompletedFlag(userId, isCompleted);
     }
 
     public void insertTodo(Todo todo) {
