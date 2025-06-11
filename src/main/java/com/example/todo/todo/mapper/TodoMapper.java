@@ -19,6 +19,10 @@ public interface TodoMapper {
     @Select("SELECT * FROM todo WHERE user_id = #{userId}")
     List<Todo> selectAllTodoById(long userId);
 
+    // 完了フラグに応じて取得する
+    @Select("SELECT * FROM todo WHERe user_id = #{userId} AND completed = #{isCompleted}")
+    List<Todo> selectAllTodoByIdAndCompletedFlag(long userId, boolean isCompleted);
+
     // 一件削除
     @Delete("DELETE FROM todo WHERE todo_id = #{todoId}")
     void deleteTodoById(long todoId);
