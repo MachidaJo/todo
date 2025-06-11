@@ -15,16 +15,16 @@
     <!-- スクロール位置を復元するJS -->
 
     <div th:replace="~{layout :: header}"></div>
-
-    <form th:action="@{nagomi/new}" th:object="${todo}" method="post">
+    <form th:action="@{nagomi/new(sort=${sort})}" th:object="${todo}" method="post">
         <label for="todo">新しいタスクを追加：</label>
         <input type="text" id="todo" name="todo" th:field="*{title}" required>
         <label for="todo">完了予定日を入力：</label>
-        <input type="date" name="todo" th:field="*{completionDate}" onblur="checkInput(this)">
-        <label><input type="radio" name="null" value=4 th:field="*{priority}" checked>無</label>
-        <label><input type="radio" name="high" value=1 th:field="*{priority}">高</label>
-        <label><input type="radio" name="middle" value=2 th:field="*{priority}">中</label>
-        <label><input type="radio" name="low" value=3 th:field="*{priority}">低</label>
+
+        <input type="date" name="todo" th:field="*{completionDate}" >
+        <label><input type="radio" name="priority" value=4 th:field="*{priority}">無</label>
+        <label><input type="radio" name="priority" value=1 th:field="*{priority}">高</label>
+        <label><input type="radio" name="priority" value=2 th:field="*{priority}">中</label>
+        <label><input type="radio" name="priority" value=3 th:field="*{priority}">低</label>
 
         <button type="submit">追加</button>
 
@@ -42,30 +42,28 @@
         </thead>
         <tbody>
             <tr th:each="todo : ${notCompletedTodos}">
-                <th:block th:if="${todo.completed == FALSE}">
-                    <td>
-                        <form th:action="@{nagomi/{todoId}/complete(todoId=${todo.todoId})}" method="post">
-                            <input type="checkbox" name="todoid" th:value="${todo.todoId}" onchange="this.form.submit()">
-                        </form>
-                    </td>
-                    <td>
-                        <img th:src="@{/images/high.png}" th:if="${todo.priority == 1}" alt=1 title="高" />
-                        <img th:src="@{/images/medium.png}" th:if="${todo.priority == 2}" alt="2" title="中" />
-                        <img th:src="@{/images/low.png}" th:if="${todo.priority == 3}" alt=3 title="低" />
-                        <img th:src="@{/images/null.png}" th:if="${todo.priority == 4}" alt=4 title="無" />
-                        <!-- 優先度のアイコン表示 -->
-                    </td>
-                    <td th:text="${todo.completionDate}" class="date" ></td>
-                    <td th:text="${todo.title}"
-                        >
-                    </td>
-  
-                    <td>
-                        <form th:action="@{/nagomi/{todoId}/delete(todoId=${todo.todoId})}" method="post">
-                            <button type="submit">削除</button>
-                        </form>
-                    </td>
-                </th:block>
+                <td>
+                    <form th:action="@{nagomi/{todoId}/complete(todoId=${todo.todoId}, sort=${sort})}" method="post">
+                        <input type="checkbox" name="todoid" th:value="${todo.todoId}" onchange="this.form.submit()">
+                    </form>
+                </td>
+                <td>
+                    <img th:src="@{/images/high.png}" th:if="${todo.priority == 1}" alt=1 title="高" />
+                    <img th:src="@{/images/medium.png}" th:if="${todo.priority == 2}" alt="2" title="中" />
+                    <img th:src="@{/images/low.png}" th:if="${todo.priority == 3}" alt=3 title="低" />
+                    <img th:src="@{/images/null.png}" th:if="${todo.priority == 4}" alt=4 title="無" />
+                    <!-- 優先度のアイコン表示 -->
+                </td>
+                <td th:text="${todo.completionDate}" class="date" ></td>
+                <td th:text="${todo.title}"
+                    >
+                </td>
+
+                <td>
+                    <form th:action="@{/nagomi/{todoId}/delete(todoId=${todo.todoId}, sort=${sort})}" method="post">
+                        <button type="submit">削除</button>
+                    </form>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -88,28 +86,26 @@
             </thead>
             <tbody>
                 <tr th:each="todo : ${completedTodos}">
-                    <th:block th:if="${todo.completed == TRUE}">
-                        <td>
-                            <form th:action="@{nagomi/{todoId}/deComplete(todoId=${todo.todoId})}" method="post">
-                                <input type="checkbox" name="todoId" th:value="${todoId}" checked
-                                    onchange="this.form.submit()">
-                            </form>
-                        </td>
-                        <td>
-                            <img th:src="@{/images/high.png}" th:if="${todo.priority == 1}" alt=1 title="高" />
-                            <img th:src="@{/images/medium.png}" th:if="${todo.priority == 2}" alt="2" title="中" />
-                            <img th:src="@{/images/low.png}" th:if="${todo.priority == 3}" alt=3 title="低" />
-                            <img th:src="@{/images/null.png}" th:if="${todo.priority == 4}" alt=4 title="無" />
-                        </td>
-                        <td th:text="${todo.completionDate}" class="date"></td>
-                        <td th:text="${todo.title}" th:classappend="${todo.completed ? 'completed' : ''}"></td>
-                        <!-- 完了したタスクに斜線を引く -->
-                        <td>
-                            <form th:action="@{/nagomi/{todoId}/delete(todoId=${todo.todoId})}" method="post">
-                                <button type="submit">削除</button>
-                            </form>
-                        </td>
-                    </th:block>
+                    <td>
+                        <form th:action="@{nagomi/{todoId}/deComplete(todoId=${todo.todoId}, sort=${sort})}" method="post">
+                            <input type="checkbox" name="todoId" th:value="${todoId}" checked
+                                onchange="this.form.submit()">
+                        </form>
+                    </td>
+                    <td>
+                        <img th:src="@{/images/high.png}" th:if="${todo.priority == 1}" alt=1 title="高" />
+                        <img th:src="@{/images/medium.png}" th:if="${todo.priority == 2}" alt="2" title="中" />
+                        <img th:src="@{/images/low.png}" th:if="${todo.priority == 3}" alt=3 title="低" />
+                        <img th:src="@{/images/null.png}" th:if="${todo.priority == 4}" alt=4 title="無" />
+                    </td>
+                    <td th:text="${todo.completionDate}" class="date"></td>
+                    <td th:text="${todo.title}" th:classappend="${todo.completed ? 'completed' : ''}"></td>
+                    <!-- 完了したタスクに斜線を引く -->
+                    <td>
+                        <form th:action="@{/nagomi/{todoId}/delete(todoId=${todo.todoId}, sort=${sort})}" method="post">
+                            <button type="submit">削除</button>
+                        </form>
+                    </td>
                 </tr>
             </tbody>
         </table>

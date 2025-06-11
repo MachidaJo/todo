@@ -21,6 +21,10 @@ public class TodoService {
         return todoRepository.selectAllTodoById(todoId);
     }
 
+    public List<Todo> selectAllTodoByIdAndCompletedFlag(long userId, boolean isCompleted) {
+        return todoRepository.selectAllTodoByIdAndCompletedFlag(userId, isCompleted);
+    }
+
     public void createTodo(@AuthenticationPrincipal CustomUserDetails userDetails, Todo todo) {
         // ユーザーIDと未完了フラグにして作成
         todo.setUserId(userDetails.getUserId());
