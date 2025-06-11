@@ -6,13 +6,6 @@ CREATE TABLE users (
 );
 
 CREATE TABLE todo (
-<<<<<<< HEAD
-    todoId INTEGER AUTO_INCREMENT PRIMARY KEY,
-    createdDate Date,
-    completed boolean,
-    title VARCHAR(255) NOT NULL
-);
-=======
 	todo_id INTEGER AUTO_INCREMENT PRIMARY KEY,
 	user_id INTEGER NOT NULL,
 	completed BOOLEAN,
@@ -22,4 +15,3 @@ CREATE TABLE todo (
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
->>>>>>> d11dd826a6c4073d9f94be97ffb7b4f9a0d43b86
