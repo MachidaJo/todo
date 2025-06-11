@@ -8,14 +8,15 @@
 <body>
     <div th:fragment="header">
         <header style="background-color: #f8f8f8;">
-            <div style="display: flex; align-items: center; justify-content: center;">
-                <img th:src="@{/images/todonagomi.png}" alt="TodoNagomiIcon" style="margin-right: 10px;">
+            <div class="icon">
+                <img th:src="@{/images/todonagomi.png}" alt="TodoNagomiIcon">
             </div>
-            <span class="logout">
+            <div class="right">
+                <!-- <p th:text="${username}"><span>さん</span></p> -->
                 <form th:action="@{/logout}" method="post">
                     <button type="submit">ログアウト</button>
                 </form>
-            </span>
+            </div>
         </header>
     </div>
     <div th:fragment="footer">

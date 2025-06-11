@@ -109,17 +109,9 @@ img {
     /* 少し薄い色にすることで目立たなくする */
 }
 
-.warning {
-    background-color: rgb(255, 242, 0);
-    /* 背景を黄色にして警告を示す */
-}
 
 td img {
     width: 20px;
     /* 優先度アイコンの大きさ */
     height: auto;
-}
-
-.logout {
-    margin: 100;
 }

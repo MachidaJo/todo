@@ -5,7 +5,7 @@
 <body>
     <div th:replace="~{layout :: header}"></div>
     <div class="border">
-    <h3>ログイン</h3>
+    <h2>ログイン</h2>
     <div th:if="${param.error}" style="color:red">
         ユーザー名、またはパスワードに誤りがあります
     </div>
@@ -34,13 +34,13 @@
             <label class="label">パスワード</label>
             <label class="error"></label>
         </div>
-        <button type="submit">ログイン</button>
-        </div>
-    </form>
-    <label>
-        <a th:href="@{/register}">新規登録はこちら</a>
-    </label>
     </div>
+    <button class="login" type="submit">ログイン</button>
+    </form>
+    </div>
+    <label>
+        <a th:href="@{/register}">新規登録はこちらから</a>
+    </label>
     <div th:replace="~{layout :: footer}"></div>
 </body>
 </html>
