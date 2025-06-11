@@ -27,26 +27,28 @@ public class TodoController {
     @GetMapping()
     public String nagomi(@AuthenticationPrincipal CustomUserDetails userDetails, Model model,
                          @RequestParam(value = "sort", required = false) String sort) {
+        
+        List<Todo> notCompletedTodos;
+        List<Todo> completedTodos;
+        // ソートが指定されていなかったら
+        if (sort == null || sort.isEmpty()) {
+            // 未完了のみのtodoをリストにする
+            notCompletedTodos = todoService.selectAllTodoByIdService(userDetails.getUserId(), false, "", false, "ASC");
+            // 完了のみのtodoをリストにする
+            completedTodos = todoService.selectAllTodoByIdService(userDetails.getUserId(), true, "", false, "ASC");
+        
+        // 指定されていたら
+        } else {
+            // 未完了のみのtodoをリストにする
+            notCompletedTodos = todoService.selectAllTodoByIdService(userDetails.getUserId(), false, sort, true, "ASC");
+            // 完了のみのtodoをリストにする
+            completedTodos = todoService.selectAllTodoByIdService(userDetails.getUserId(), true, sort, true, "ASC");
+        }
 
-        // 未完了のみのtodoをリストにする
-        List<Todo> notCompletedTodos = todoService.selectAllTodoByIdAndCompletedFlag(userDetails.getUserId(), false);
-        // 完了のみのtodoをリストにする
-        List<Todo> completedTodos = todoService.selectAllTodoByIdAndCompletedFlag(userDetails.getUserId(), true);
         // formに使うTodoObjectを渡す。
         Todo todo = new Todo();
         // Todoの優先度の初期値を4にする。
         todo.setPriority(4);
-        
-        // 優先度でソートする
-        if (sort != null && sort.equals("priority")) {
-            notCompletedTodos = notCompletedTodos.stream()
-                                                .sorted((x, y) -> x.getPriority() - y.getPriority())
-                                                .toList();
-
-            completedTodos = completedTodos.stream()
-                                            .sorted((x, y) -> x.getPriority() - y.getPriority())
-                                            .toList();
-        }
 
         model.addAttribute("notCompletedTodos", notCompletedTodos);
         model.addAttribute("completedTodos", completedTodos);
@@ -62,7 +64,7 @@ public class TodoController {
         todoService.createTodo(userDetails, todo);
 
         // sortに文字が入っれいたらソート込みでリダイレクトする。
-        if (!sort.isEmpty()) {
+        if (sort != null && !sort.isEmpty()) {
             return "redirect:/nagomi?sort=" + sort;
         }
 
@@ -75,7 +77,7 @@ public class TodoController {
         todoService.completed(todoId);
 
         // sortに文字が入っれいたらソート込みでリダイレクトする。
-        if (!sort.isEmpty()) {
+        if (sort != null && !sort.isEmpty()) {
             return "redirect:/nagomi?sort=" + sort;
         }
 

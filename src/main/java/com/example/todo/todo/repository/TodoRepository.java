@@ -15,12 +15,12 @@ public class TodoRepository {
         this.todoMapper = todoMapper;
     }
 
-    public List<Todo> selectAllTodoById(long todoId) {
-        return todoMapper.selectAllTodoById(todoId);
+    public List<Todo> selectAllTodoByIdAndCompletedFlag(long todoId, boolean isCompleted) {
+        return todoMapper.selectAllTodoByIdAndCompletedFlag(todoId, isCompleted);
     }
 
-    public List<Todo> selectAllTodoByIdAndCompletedFlag(long userId, boolean isCompleted) {
-        return todoMapper.selectAllTodoByIdAndCompletedFlag(userId, isCompleted);
+    public List<Todo> selectAllTodoByIdAndCompletedFlagAndColumnSort(long userId, boolean isCompleted, String column, String sort) {
+        return todoMapper.selectAllTodoByIdAndCompletedFlagAndColumnSort(userId, isCompleted, column, sort);
     }
 
     public void insertTodo(Todo todo) {

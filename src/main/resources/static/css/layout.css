@@ -22,7 +22,11 @@ button {
 }
 
 .right{
-    text-align: right;
-    margin: 0 10px 50px;
+    margin-left: 1200px;
+    display: flex;
+}
+
+button[name="logout"]{
+    margin-left: 10px;
 }
 
