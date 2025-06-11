@@ -1,6 +1,5 @@
 package com.example.todo.todo.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
