@@ -7,8 +7,6 @@
     <img src="\images\left.take.png" alt="左側の美しい竹" class="left-image">
     <img src="\images\right.take.png" alt="右側の美しい竹" class="right-image">
 
-    <script th:src="@{/js/today.js}"></script>
-    <!-- チェックボックスで現在日取得するJS -->
     <script th:src="@{/js/expiration.js}"></script>
     <!-- 期限切れの予定日を赤く色づけするJS -->
     <script th:src="@{/js/Count.js}"></script>
@@ -49,8 +47,7 @@
                 <th:block th:if="${todo.completed == FALSE}">
                     <td>
                         <form th:action="@{nagomi/{todoId}/complete(todoId=${todo.todoId})}" method="post">
-                            <input type="checkbox" name="todoid" th:value="${todo.todoId}" id="timeCheckbox"
-                                onclick="getCurrentDate()" onchange="this.form.submit()">
+                            <input type="checkbox" name="todoid" th:value="${todo.todoId}" onchange="this.form.submit()">
                         </form>
                     </td>
                     <td>
@@ -61,10 +58,8 @@
                         <!-- 優先度のアイコン表示 -->
                     </td>
                     <td th:text="${todo.completionDate}" class="date"></td>
-                    <td th:text="${todo.title}"
-                        >
+                    <td th:text="${todo.title}">
                     </td>
-                    <!-- 予定日より３日前を配色する -->
                     <td>
                         <form th:action="@{/nagomi/{todoId}/delete(todoId=${todo.todoId})}" method="post">
                             <button type="submit">削除</button>
@@ -106,7 +101,7 @@
                             <img th:src="@{/images/low.png}" th:if="${todo.priority == 3}" alt=3 title="低" />
                             <img th:src="@{/images/null.png}" th:if="${todo.priority == 0}" alt=0 title="無" />
                         </td>
-                        <td th:text="${todo.completionDate}" class="date"></td>
+                        <td th:text="${todo.completionDate}"></td>
                         <td th:text="${todo.title}" th:classappend="${todo.completed ? 'completed' : ''}"></td>
                         <!-- 完了したタスクに斜線を引く -->
                         <td>
