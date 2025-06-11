@@ -14,7 +14,7 @@ public class SecurityConfig {
        http // ログインしていない状態でどのページにもアクセスできなくなる
             .authorizeHttpRequests(request -> request
             // リクエストの特定の条件に一致するかどうかを判定
-                .requestMatchers("/css/**", "/images/**", "/js/**", "/register/**").permitAll()
+                .requestMatchers("/css/**", "/images/**", "/js/**", "/register/**", "/templates/**").permitAll()
                 .anyRequest().authenticated())
             .formLogin(login -> login
                 // ログイン認証の送信先URL（POST送信）

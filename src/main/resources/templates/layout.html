@@ -12,9 +12,14 @@
                 <img th:src="@{/images/todonagomi.png}" alt="TodoNagomiIcon">
             </div>
             <div class="right">
-                <form th:action="@{/logout}" method="post">
-                    <button type="submit" name="logout">ログアウト</button>
-                </form>
+            <div th:if="${todo} != null">
+                <p>こんにちは、<span th:text="${#authentication.principal.getUsername()}"></span>さん</p>
+            </div>
+            <form th:action="@{/logout}" method="post">
+                <div th:if="${todo} != null">
+                <button type="submit" name="logout">ログアウト</button>
+                </div>
+            </form>
             </div>
         </header>
     </div>

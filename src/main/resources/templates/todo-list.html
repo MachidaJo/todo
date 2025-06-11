@@ -15,13 +15,11 @@
     <!-- スクロール位置を復元するJS -->
 
     <div th:replace="~{layout :: header}"></div>
-    <p>こんにちは、<span th:text="${#authentication.principal.getUsername()}"></span>さん</p>
     <form th:action="@{nagomi/new(sort=${sort})}" th:object="${todo}" method="post">
         <label for="todo">新しいタスクを追加：</label>
         <input type="text" id="todo" name="todo" th:field="*{title}" required>
         <label for="todo">完了予定日を入力：</label>
-
-        <input type="date" name="todo" th:field="*{completionDate}" >
+        <input type="date" name="todo" th:field="*{completionDate}" min="0001-01-01" max="9999-12-31">
         <label><input type="radio" name="priority" value=4 th:field="*{priority}">無</label>
         <label><input type="radio" name="priority" value=1 th:field="*{priority}">高</label>
         <label><input type="radio" name="priority" value=2 th:field="*{priority}">中</label>
@@ -34,17 +32,17 @@
     <table>
         <thead>
             <tr>
-                <th class="fixed-width">完了</th>
-                <th class="fixed-width">優先度</th>
-                <th class="fixed-width">予定日</th>
-                <th class="auto-width">タイトル</th>
+                <th><a th:href="@{nagomi}" class="fixed-width">完了</a></th>
+                <th><a th:href="@{nagomi(sort=priority)}" class="fixed-width">優先度</a></th>
+                <th><a th:href="@{nagomi(sort=completion_date)}" class="fixed-width">予定日</a></th>
+                <th><a th:href="@{nagomi(sort=title)}" class="auto-width">タイトル</a></th>
                 <th class="fixed-width">削除</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="todo : ${notCompletedTodos}">
                 <td>
-                    <form th:action="@{nagomi/{todoId}/complete(todoId=${todo.todoId}, sort=${sort})}" method="post">
+                    <form th:action="@{nagomi/{todoId}/complete(todoId=${todo.todoId})}" method="post">
                         <input type="checkbox" name="todoid" th:value="${todo.todoId}" onchange="this.form.submit()">
                     </form>
                 </td>
