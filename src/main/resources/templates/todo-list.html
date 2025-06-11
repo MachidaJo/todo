@@ -32,9 +32,9 @@
     <table>
         <thead>
             <tr>
-                <th class="fixed-width">完了</th>
+                <th><a th:href="@{nagomi}" class="fixed-width">完了</a></th>
                 <th><a th:href="@{nagomi(sort=priority)}" class="fixed-width">優先度</a></th>
-                <th><a th:href="@{nagomi(sort=completionDate)}" class="fixed-width">予定日</a></th>
+                <th><a th:href="@{nagomi(sort=completion_date)}" class="fixed-width">予定日</a></th>
                 <th><a th:href="@{nagomi(sort=title)}" class="auto-width">タイトル</a></th>
                 <th class="fixed-width">削除</th>
             </tr>
