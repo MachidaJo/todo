@@ -15,13 +15,13 @@ import com.example.todo.todo.entity.Todo;
 @Mapper
 public interface TodoMapper {
     
-    // 全件取得
-    @Select("SELECT * FROM todo WHERE user_id = #{userId}")
-    List<Todo> selectAllTodoById(long userId);
-
     // 完了フラグに応じて取得する
-    @Select("SELECT * FROM todo WHERe user_id = #{userId} AND completed = #{isCompleted}")
+    @Select("SELECT * FROM todo WHERE user_id = #{userId} AND completed = #{isCompleted}")
     List<Todo> selectAllTodoByIdAndCompletedFlag(long userId, boolean isCompleted);
+
+    // 完了フラグに応じて取得、優先度で並び替え(ASC)
+    @Select("SELECT * FROM todo WHERE user_id = #{userId} AND completed = #{isCompleted} ORDER BY ${column} ${sort}")
+    List <Todo> selectAllTodoByIdAndCompletedFlagAndColumnSort(long userId, boolean isCompleted, String column, String sort);
 
     // 一件削除
     @Delete("DELETE FROM todo WHERE todo_id = #{todoId}")

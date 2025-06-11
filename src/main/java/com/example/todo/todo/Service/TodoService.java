@@ -1,7 +1,7 @@
 package com.example.todo.todo.Service;
 
 import java.util.List;
-
+import com.example.todo.todo.security.CustomUserDetailsService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
@@ -11,18 +11,22 @@ import com.example.todo.todo.security.CustomUserDetails;
 
 @Service
 public class TodoService {
+
+    private final CustomUserDetailsService customUserDetailsService;
     private final TodoRepository todoRepository;
 
-    public TodoService(TodoRepository todoRepository) {
+    public TodoService(TodoRepository todoRepository, CustomUserDetailsService customUserDetailsService) {
         this.todoRepository = todoRepository;
+        this.customUserDetailsService = customUserDetailsService;
     }
 
-    public List<Todo> selectAllTodoById(long todoId) {
-        return todoRepository.selectAllTodoById(todoId);
-    }
-
-    public List<Todo> selectAllTodoByIdAndCompletedFlag(long userId, boolean isCompleted) {
-        return todoRepository.selectAllTodoByIdAndCompletedFlag(userId, isCompleted);
+    public List<Todo> selectAllTodoByIdService(long userId, boolean isCompleted, String column, boolean isSort, String sort) {
+        // 並び替えが有効だったら
+        if (isSort) {
+            return todoRepository.selectAllTodoByIdAndCompletedFlagAndColumnSort(userId, isCompleted, column, sort);
+        } else {
+            return todoRepository.selectAllTodoByIdAndCompletedFlag(userId, isCompleted);
+        }
     }
 
     public void createTodo(@AuthenticationPrincipal CustomUserDetails userDetails, Todo todo) {
