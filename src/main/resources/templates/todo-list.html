@@ -19,11 +19,12 @@
         <label for="todo">新しいタスクを追加：</label>
         <input type="text" id="todo" name="todo" th:field="*{title}" required>
         <label for="todo">完了予定日を入力：</label>
+
         <input type="date" name="todo" th:field="*{completionDate}" >
-        <input type="radio" name="priority" value=4 th:field="*{priority}">無
-        <input type="radio" name="priority" value=1 th:field="*{priority}">高
-        <input type="radio" name="priority" value=2 th:field="*{priority}">中
-        <input type="radio" name="priority" value=3 th:field="*{priority}">低
+        <label><input type="radio" name="priority" value=4 th:field="*{priority}">無</label>
+        <label><input type="radio" name="priority" value=1 th:field="*{priority}">高</label>
+        <label><input type="radio" name="priority" value=2 th:field="*{priority}">中</label>
+        <label><input type="radio" name="priority" value=3 th:field="*{priority}">低</label>
 
         <button type="submit">追加</button>
 
