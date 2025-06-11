@@ -38,7 +38,18 @@ public class TodoController {
                     .toList();
         }
 
-        model.addAttribute("todos", todos);
+        // 未完了のみのtodoをリストにする
+        List<Todo> notCompletedTodos = todos.stream()
+                                            .filter(t -> t.isCompleted() == false)
+                                            .toList();
+
+        // 完了のみのtodoをリストにする
+        List<Todo> completedTodos = todos.stream()
+                                            .filter(t -> t.isCompleted() == true)
+                                            .toList();
+
+        model.addAttribute("notCompletedTodos", notCompletedTodos);
+        model.addAttribute("completedTodos", completedTodos);
         model.addAttribute("todo", todo);
 
 
