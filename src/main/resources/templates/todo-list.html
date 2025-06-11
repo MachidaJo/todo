@@ -25,7 +25,7 @@
         <input type="text" id="todo" name="todo" th:field="*{title}" required>
         <label for="todo">完了予定日を入力：</label>
         <input type="date" name="todo" th:field="*{completionDate}">
-        <input type="radio" name="priority" value=0 th:field="*{priority}" checked>無
+        <input type="radio" name="priority" value=4 th:field="*{priority}" checked>無
         <input type="radio" name="priority" value=1 th:field="*{priority}">高
         <input type="radio" name="priority" value=2 th:field="*{priority}">中
         <input type="radio" name="priority" value=3 th:field="*{priority}">低
@@ -33,7 +33,9 @@
         <button type="submit">追加</button>
 
     </form>
-    <h3>ToDo<span id="incompleteCount"></span></h3>
+    <h3>ToDo
+        <span>(件)</span>
+    </h3>
     <table>
         <thead>
             <tr>
@@ -78,7 +80,7 @@
         <div class="image-text-container">
             <h3 href="javascript:void(0)" onclick="dd('折りたたみ指示B')"><img src="/images/triangleleft_83849.png"
                     id="折りたたみ指示Bi" style=" margin-right: 30px; 
-    width: 15px; height: 15px;" alt="三角印">Done<span id="completedCount"></span></h3>
+    width: 15px; height: 15px;" alt="三角印">Done<span>(件)</span></h3>
         </div>
 
         <table id="折りたたみ指示B">
