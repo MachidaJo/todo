@@ -15,6 +15,7 @@
     <!-- スクロール位置を復元するJS -->
 
     <div th:replace="~{layout :: header}"></div>
+    <p>こんにちは、<span th:text="${#authentication.principal.getUsername()}"></span>さん</p>
     <form th:action="@{nagomi/new(sort=${sort})}" th:object="${todo}" method="post">
         <label for="todo">新しいタスクを追加：</label>
         <input type="text" id="todo" name="todo" th:field="*{title}" required>
