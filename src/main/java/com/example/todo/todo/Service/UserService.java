@@ -15,10 +15,15 @@ public class UserService {
 		this.passwordEncoder = passwordEncoder;
 	}
 
+    // ユーザー作成
     public void createUser(User user) {
+        // 既にユーザーが存在するかチェック
+        if (userRepository.selectUserByUsername(user.getUsername()) != null) {
+            throw new IllegalArgumentException("Username already exists");
+        }
+        // パスワードをハッシュ化
         String hashedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(hashedPassword);
-    
         userRepository.insertUser(user);
     }
 }

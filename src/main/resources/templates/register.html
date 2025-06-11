@@ -6,8 +6,8 @@
     <div th:replace="~{layout :: header}"></div>
     <div class="border">
     <h2>新規登録</h2>
-    <div th:if="${param.error}" style="color:red">
-        ユーザー名、またはパスワードに誤りがあります
+    <div th:if="${error}" style="color:red">
+        ユーザー名は既に存在しています
     </div>
     <form th:action="@{/register}" th:object="${user}" method="post">
         <div class="stuff">
