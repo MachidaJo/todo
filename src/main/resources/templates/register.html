@@ -9,6 +9,9 @@
     <div th:if="${error}" style="color:red">
         ユーザー名は既に存在しています
     </div>
+    <div th:if="${BlankError}" style="color:red">
+        ユーザー名とパスワードは必須です
+    </div>
     <form th:action="@{/register}" th:object="${user}" method="post">
         <div class="stuff">
         <div class="textBox">

@@ -26,6 +26,11 @@ public class RegistrationController {
     // POSTリクエストでユーザー登録処理
     @PostMapping("/register")
     public String registerUser(User user, Model model) {
+        if (user.getUsername().isBlank() || user.getPassword().isBlank()) {
+            model.addAttribute("BlankError", "ユーザー名とパスワードは必須です");
+            return "register";
+        }
+        
         try {
             userService.createUser(user);
             // 登録成功時リダイレクト
