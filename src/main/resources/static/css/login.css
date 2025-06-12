@@ -122,3 +122,23 @@ a {
   font-weight: 200;
   font-family: Arial, sans-serif;
 }
+
+.left-image {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 25%;
+    opacity: 1;
+}
+
+.right-image {
+    position: absolute;
+
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 25%;
+    opacity: 1;
+}

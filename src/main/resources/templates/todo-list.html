@@ -4,8 +4,8 @@
 <head th:replace="~{layout :: head(ToDoList)}"></head>
 <link rel="stylesheet" th:href="@{/css/todo-list.css}">
 <body>
-    <img src="\images\left.take.png" alt="左側の美しい竹" class="left-image">
-    <img src="\images\right.take.png" alt="右側の美しい竹" class="right-image">
+    <!-- <img src="\images\left.take.png" alt="左側の美しい竹" class="left-image">
+    <img src="\images\right.take.png" alt="右側の美しい竹" class="right-image"> -->
 
     <script th:src="@{/js/expiration.js}"></script>
     <!-- 期限切れの予定日を赤く色づけするJS -->
@@ -28,7 +28,7 @@
         <button type="submit">追加</button>
 
     </form>
-    <h3>ToDo[<span th:text="${notCompletedTodos.size()}"></span>件]</h3>
+    <h3>やること [<span class="todo" th:text="${notCompletedTodos.size()}"></span>件 ]</h3>
     <table>
         <thead>
             <tr>
@@ -54,13 +54,13 @@
                     <!-- 優先度のアイコン表示 -->
                 </td>
                 <td th:text="${todo.completionDate}" class="date" ></td>
-                <td th:text="${todo.title}"
-                    >
+                <td th:text="${todo.title}">
                 </td>
-
                 <td>
                     <form th:action="@{/nagomi/{todoId}/delete(todoId=${todo.todoId}, sort=${sort})}" method="post">
-                        <button type="submit">削除</button>
+                        <button type="submit">
+                            <img th:src="@{/images/delete.png}" name="delete">
+                        </button>
                     </form>
                 </td>
             </tr>
@@ -68,9 +68,12 @@
     </table>
     <div id="折りたたみB">
         <div class="image-text-container">
-            <h3 href="javascript:void(0)" onclick="dd('折りたたみ指示B')"><img src="/images/triangleleft_83849.png"
-                    id="折りたたみ指示Bi" style=" margin-right: 30px; 
-    width: 15px; height: 15px;" alt="三角印">Done[<span th:text="${completedTodos.size()}"></span>件]</h3>
+            <h3 href="javascript:void(0)" onclick="dd('折りたたみ指示B')">
+                <img src="/images/triangleleft_83849.png"
+                     id="折りたたみ指示Bi" style=" margin-right: 30px; 
+                        width: 15px; height: 15px;" alt="三角印">
+                完了 [<span th:text="${completedTodos.size()}"></span>件 ]
+            </h3>
         </div>
 
         <table id="折りたたみ指示B">
