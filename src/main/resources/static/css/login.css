@@ -123,22 +123,22 @@ a {
   font-family: Arial, sans-serif;
 }
 
-.left-image {
+.left-image1 {
     position: absolute;
 
     top: 0;
     left: 0;
     height: 100%;
-    width: 25%;
+    width: 50%;
     opacity: 1;
 }
 
-.right-image {
+.left-image2 {
     position: absolute;
 
     top: 0;
-    right: 0;
+    left: 0;
     height: 100%;
-    width: 25%;
+    width: 40%;
     opacity: 1;
 }
