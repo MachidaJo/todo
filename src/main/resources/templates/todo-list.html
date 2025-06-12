@@ -66,6 +66,21 @@
             </tr>
         </tbody>
     </table>
+
+    <!-- HappyCats集団 -->
+    <th:block th:if="${notCompletedTodos.size() == 0}">
+        <h3 class="otukare">本日もお疲れさまでした</h3>
+        <img class="happycat" th:src="@{/images/happy-cat-happy-happy-cat.gif}" alt="ハッピー猫1">
+        <img class="happycat" th:src="@{/images/happy-cat-happy-happy-cat.gif}" alt="ハッピー猫2">
+        <img class="happycat" th:src="@{/images/happy-cat-happy-happy-cat.gif}" alt="ハッピー猫3">
+        <img class="happycat" th:src="@{/images/happy-cat-happy-happy-cat.gif}" alt="ハッピー猫4">
+        <img class="happycat" th:src="@{/images/happy-cat-happy-happy-cat.gif}" alt="ハッピー猫5">
+        <img class="happycat" th:src="@{/images/happy-cat-happy-happy-cat.gif}" alt="ハッピー猫6">
+        <img class="happycat" th:src="@{/images/happy-cat-happy-happy-cat.gif}" alt="ハッピー猫7">
+        <img class="happycat" th:src="@{/images/happy-cat-happy-happy-cat.gif}" alt="ハッピー猫8">
+        <img class="happycat" th:src="@{/images/happy-cat-happy-happy-cat.gif}" alt="ハッピー猫9">
+    </th:block>
+
     <div id="折りたたみB">
         <div class="image-text-container">
             <h3 href="javascript:void(0)" onclick="dd('折りたたみ')"><img src="/images/triangledown_83849.png"

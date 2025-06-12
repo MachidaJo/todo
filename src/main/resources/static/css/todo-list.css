@@ -11,7 +11,7 @@ table {
     margin: 0 auto;
     border-collapse: collapse;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 50px;
+    margin-bottom: 10px;
 }
 
 label {
@@ -138,4 +138,23 @@ td img {
 
 img[name="delete"] {
     width: 40%;
+}
+
+.otukare {
+    margin-top: 0px;
+    padding-top: 0px;
+    background: linear-gradient(to right,#e60000,#f39800,#fff100,#009944,#0068b7,#1d2088,#920783,#e60000) 0 / 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+    animation: 1s rainbowAnimation linear infinite;
+}
+
+@keyframes rainbowAnimation {
+    100% { background-position: 200%; }
+}
+
+.happycat {
+    width: 10%;
+    background-repeat: repeat-x;
 }
