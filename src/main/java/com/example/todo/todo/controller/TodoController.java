@@ -26,24 +26,22 @@ public class TodoController {
 
     @GetMapping()
     public String nagomi(@AuthenticationPrincipal CustomUserDetails userDetails, Model model,
-                         @RequestParam(value = "sort", required = false) String sort) {
+                         @RequestParam(value = "column", required = false) String column,
+                         @RequestParam(value = "order", required = false) String order) {
         
         List<Todo> notCompletedTodos;
         List<Todo> completedTodos;
-        // ソートが指定されていなかったら
-        if (sort == null || sort.isEmpty()) {
-            // 未完了のみのtodoをリストにする
-            notCompletedTodos = todoService.selectAllTodoByIdService(userDetails.getUserId(), false, "", false, "ASC");
-            // 完了のみのtodoをリストにする
-            completedTodos = todoService.selectAllTodoByIdService(userDetails.getUserId(), true, "", false, "ASC");
+        // ソートのcolumnに指定があったらソートを有効にする
+        boolean isSort = column != null && !column.isEmpty() ? true : false;
+        // ソートのcolumn指定が無かったら空白で処理する
+        column = column != null && !column.isEmpty() ? column : "";
+        // ソートのorder指定が無かったらASCで処理する
+        order = order != null && !order.isEmpty() ? order : "ASC";
         
-        // 指定されていたら
-        } else {
-            // 未完了のみのtodoをリストにする
-            notCompletedTodos = todoService.selectAllTodoByIdService(userDetails.getUserId(), false, sort, true, "ASC");
-            // 完了のみのtodoをリストにする
-            completedTodos = todoService.selectAllTodoByIdService(userDetails.getUserId(), true, sort, true, "ASC");
-        }
+        // 未完了のTodoを取得する
+        notCompletedTodos = todoService.selectAllTodoByIdService(userDetails.getUserId(), false, column, isSort, order);
+        // 完了済みのTodoを取得する
+        completedTodos = todoService.selectAllTodoByIdService(userDetails.getUserId(), true, column, isSort, order);
 
         // formに使うTodoObjectを渡す。
         Todo todo = new Todo();
@@ -53,19 +51,21 @@ public class TodoController {
         model.addAttribute("notCompletedTodos", notCompletedTodos);
         model.addAttribute("completedTodos", completedTodos);
         model.addAttribute("todo", todo);
-        model.addAttribute("sort", sort);
+        model.addAttribute("column", column);
+        model.addAttribute("order", order);
 
         return "todo-list";
     }
 
     @PostMapping("/new")
     public String createTodo(@AuthenticationPrincipal CustomUserDetails userDetails, Todo todo,
-                             @RequestParam(value = "sort", required = false) String sort) {
+                             @RequestParam(value = "column", required = false) String column,
+                             @RequestParam(value = "order", required = false) String order) {
         todoService.createTodo(userDetails, todo);
 
-        // sortに文字が入っれいたらソート込みでリダイレクトする。
-        if (sort != null && !sort.isEmpty()) {
-            return "redirect:/nagomi?sort=" + sort;
+        // columnに文字が入っていたらソート込みでリダイレクトする。
+        if (column != null && !column.isEmpty()) {
+            return String.format("redirect:/nagomi?column=%s&order=%s", column, order);
         }
 
         return "redirect:/nagomi";
@@ -73,12 +73,13 @@ public class TodoController {
     
     @PostMapping("{todoId}/complete")
     public String completeTodo(@PathVariable long todoId, 
-                               @RequestParam(value = "sort", required = false) String sort) {
+                               @RequestParam(value = "column", required = false) String column,
+                               @RequestParam(value = "order", required = false) String order) {
         todoService.completed(todoId);
 
-        // sortに文字が入っれいたらソート込みでリダイレクトする。
-        if (sort != null && !sort.isEmpty()) {
-            return "redirect:/nagomi?sort=" + sort;
+        // columnに文字が入っていたらソート込みでリダイレクトする。
+        if (column != null && !column.isEmpty()) {
+            return String.format("redirect:/nagomi?column=%s&order=%s", column, order);
         }
 
         return "redirect:/nagomi";
