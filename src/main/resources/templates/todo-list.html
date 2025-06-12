@@ -42,7 +42,7 @@
         <tbody>
             <tr th:each="todo : ${notCompletedTodos}">
                 <td>
-                    <form th:action="@{nagomi/{todoId}/complete(todoId=${todo.todoId})}" method="post">
+                    <form th:action="@{nagomi/{todoId}/complete(todoId=${todo.todoId}, sort=${sort})}" method="post">
                         <input type="checkbox" name="todoid" th:value="${todo.todoId}" onchange="this.form.submit()">
                     </form>
                 </td>
@@ -68,15 +68,11 @@
     </table>
     <div id="折りたたみB">
         <div class="image-text-container">
-            <h3 href="javascript:void(0)" onclick="dd('折りたたみ指示B')">
-                <img src="/images/triangleleft_83849.png"
-                     id="折りたたみ指示Bi" style=" margin-right: 30px; 
-                        width: 15px; height: 15px;" alt="三角印">
-                完了 [<span th:text="${completedTodos.size()}"></span>件 ]
-            </h3>
+            <h3 href="javascript:void(0)" onclick="dd('折りたたみ')"><img src="/images/triangledown_83849.png"
+                    id="折りたたみi" style=" margin-right: 30px; width: 15px; height: 15px;" alt="三角印">Done[<span th:text="${completedTodos.size()}"></span>件]</h3>
         </div>
 
-        <table id="折りたたみ指示B">
+        <table id="折りたたみ" style="display: none;">
             <thead>
                 <tr>
                     <th class="fixed-width">完了</th>
