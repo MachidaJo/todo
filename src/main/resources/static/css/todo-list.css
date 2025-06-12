@@ -22,7 +22,9 @@ label {
     width: 100px;
 }
 
-.auto-width {}
+.auto-width {
+    width: auto;
+}
 
 th,
 td {

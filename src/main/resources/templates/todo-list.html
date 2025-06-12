@@ -7,6 +7,8 @@
     <!-- <img src="\images\left.take.png" alt="左側の美しい竹" class="left-image">
     <img src="\images\right.take.png" alt="右側の美しい竹" class="right-image"> -->
 
+    <script th:src="@{/js/table.js}"></script>
+    <!-- 上下のテーブルで幅を合わせる -->
     <script th:src="@{/js/expiration.js}"></script>
     <!-- 期限切れの予定日を赤く色づけするJS -->
     <script th:src="@{/js/oritatami.js}"></script>
@@ -29,13 +31,13 @@
 
     </form>
     <h3>やること [<span class="todo" th:text="${notCompletedTodos.size()}"></span>件 ]</h3>
-    <table>
+    <table class="my-table">
         <thead>
             <tr>
                 <th><a th:href="@{nagomi}" class="fixed-width">完了</a></th>
                 <th><a th:href="@{nagomi(sort=priority)}" class="fixed-width">優先度</a></th>
                 <th><a th:href="@{nagomi(sort=completion_date)}" class="fixed-width">予定日</a></th>
-                <th><a th:href="@{nagomi(sort=title)}" class="fixed-width">タイトル</a></th>
+                <th><a th:href="@{nagomi(sort=title)}" class="auto-width">タイトル</a></th>
                 <th class="fixed-width">削除</th>
             </tr>
         </thead>
@@ -72,9 +74,9 @@
                     id="折りたたみi" style=" margin-right: 30px; width: 15px; height: 15px;" alt="三角印">Done[<span th:text="${completedTodos.size()}"></span>件]</h3>
         </div>
 
-        <table id="折りたたみ" style="display: none;">
+        <table id="折りたたみ" class="my-table">
             <thead>
-                <tr>
+                <tr class="auto-width">
                     <th class="fixed-width">完了</th>
                     <th class="fixed-width">優先度</th>
                     <th class="fixed-width">完了日</th>
