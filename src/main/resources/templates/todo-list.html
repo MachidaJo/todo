@@ -4,8 +4,8 @@
 <head th:replace="~{layout :: head(ToDoList)}"></head>
 <link rel="stylesheet" th:href="@{/css/todo-list.css}">
 <body>
-    <img src="\images\left.take.png" alt="左側の美しい竹" class="left-image">
-    <img src="\images\right.take.png" alt="右側の美しい竹" class="right-image">
+    <!-- <img src="\images\left.take.png" alt="左側の美しい竹" class="left-image">
+    <img src="\images\right.take.png" alt="右側の美しい竹" class="right-image"> -->
 
     <script th:src="@{/js/expiration.js}"></script>
     <!-- 期限切れの予定日を赤く色づけするJS -->
@@ -28,14 +28,14 @@
         <button type="submit">追加</button>
 
     </form>
-    <h3>ToDo[<span th:text="${notCompletedTodos.size()}"></span>件]</h3>
+    <h3>やること [<span class="todo" th:text="${notCompletedTodos.size()}"></span>件 ]</h3>
     <table>
         <thead>
             <tr>
                 <th><a th:href="@{nagomi}" class="fixed-width">完了</a></th>
                 <th><a th:href="@{nagomi(sort=priority)}" class="fixed-width">優先度</a></th>
                 <th><a th:href="@{nagomi(sort=completion_date)}" class="fixed-width">予定日</a></th>
-                <th><a th:href="@{nagomi(sort=title)}" class="auto-width">タイトル</a></th>
+                <th><a th:href="@{nagomi(sort=title)}" class="fixed-width">タイトル</a></th>
                 <th class="fixed-width">削除</th>
             </tr>
         </thead>
@@ -54,13 +54,13 @@
                     <!-- 優先度のアイコン表示 -->
                 </td>
                 <td th:text="${todo.completionDate}" class="date" ></td>
-                <td th:text="${todo.title}"
-                    >
+                <td th:text="${todo.title}">
                 </td>
-
                 <td>
                     <form th:action="@{/nagomi/{todoId}/delete(todoId=${todo.todoId}, sort=${sort})}" method="post">
-                        <button type="submit">削除</button>
+                        <button type="submit">
+                            <img th:src="@{/images/delete.png}" name="delete">
+                        </button>
                     </form>
                 </td>
             </tr>
