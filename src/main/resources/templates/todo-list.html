@@ -15,7 +15,7 @@
     <!-- スクロール位置を復元するJS -->
 
     <div th:replace="~{layout :: header}"></div>
-    <form th:action="@{nagomi/new(sort=${sort})}" th:object="${todo}" method="post">
+    <form th:action="@{nagomi/new(column=${column}, order=${order})}" th:object="${todo}" method="post">
         <label for="todo">新しいタスクを追加：</label>
         <input type="text" id="todo" name="todo" th:field="*{title}" required>
         <label for="todo">完了予定日を入力：</label>
@@ -33,16 +33,16 @@
         <thead>
             <tr>
                 <th><a th:href="@{nagomi}" class="fixed-width">完了</a></th>
-                <th><a th:href="@{nagomi(sort=priority)}" class="fixed-width">優先度</a></th>
-                <th><a th:href="@{nagomi(sort=completion_date)}" class="fixed-width">予定日</a></th>
-                <th><a th:href="@{nagomi(sort=title)}" class="fixed-width">タイトル</a></th>
+                <th><a th:href="@{nagomi(column=priority, order=${order})}" class="fixed-width">優先度</a></th>
+                <th><a th:href="@{nagomi(column=completion_date, order=${order})}" class="fixed-width">予定日</a></th>
+                <th><a th:href="@{nagomi(column=title, order=${order})}" class="fixed-width">タイトル</a></th>
                 <th class="fixed-width">削除</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="todo : ${notCompletedTodos}">
                 <td>
-                    <form th:action="@{nagomi/{todoId}/complete(todoId=${todo.todoId}, sort=${sort})}" method="post">
+                    <form th:action="@{nagomi/{todoId}/complete(todoId=${todo.todoId}, column=${column}, order=${order})}" method="post">
                         <input type="checkbox" name="todoid" th:value="${todo.todoId}" onchange="this.form.submit()">
                     </form>
                 </td>
@@ -57,7 +57,7 @@
                 <td th:text="${todo.title}">
                 </td>
                 <td>
-                    <form th:action="@{/nagomi/{todoId}/delete(todoId=${todo.todoId}, sort=${sort})}" method="post">
+                    <form th:action="@{/nagomi/{todoId}/delete(todoId=${todo.todoId}, column=${column}, order=${order})}" method="post">
                         <button type="submit">
                             <img th:src="@{/images/delete.png}" name="delete">
                         </button>
@@ -85,7 +85,7 @@
             <tbody>
                 <tr th:each="todo : ${completedTodos}">
                     <td>
-                        <form th:action="@{nagomi/{todoId}/deComplete(todoId=${todo.todoId}, sort=${sort})}" method="post">
+                        <form th:action="@{nagomi/{todoId}/deComplete(todoId=${todo.todoId}, column=${column}, order=${order})}" method="post">
                             <input type="checkbox" name="todoId" th:value="${todoId}" checked
                                 onchange="this.form.submit()">
                         </form>
@@ -100,7 +100,7 @@
                     <td th:text="${todo.title}" th:classappend="${todo.completed ? 'completed' : ''}"></td>
                     <!-- 完了したタスクに斜線を引く -->
                     <td>
-                        <form th:action="@{/nagomi/{todoId}/delete(todoId=${todo.todoId}, sort=${sort})}" method="post">
+                        <form th:action="@{/nagomi/{todoId}/delete(todoId=${todo.todoId}, column=${column}, order=${order})}" method="post">
                             <button type="submit">削除</button>
                         </form>
                     </td>

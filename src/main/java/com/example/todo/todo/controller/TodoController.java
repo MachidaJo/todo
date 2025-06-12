@@ -87,12 +87,13 @@ public class TodoController {
 
     @PostMapping("{todoId}/deComplete")
     public String deCompleteTodo(@PathVariable long todoId,
-                                 @RequestParam(value = "sort", required = false) String sort) {
+                                 @RequestParam(value = "column", required = false) String column,
+                                 @RequestParam(value = "order", required = false) String order) {
         todoService.deCompleted(todoId);
         
-        // sortに文字が入っれいたらソート込みでリダイレクトする。
-        if (sort != null && !sort.isEmpty()) {
-            return "redirect:/nagomi?sort=" + sort;
+        // columnに文字が入っていたらソート込みでリダイレクトする。
+        if (column != null && !column.isEmpty()) {
+            return String.format("redirect:/nagomi?column=%s&order=%s", column, order);
         }
 
         return "redirect:/nagomi";
@@ -100,12 +101,13 @@ public class TodoController {
 
     @PostMapping("{todoId}/delete")
     public String deleteTodo(@PathVariable long todoId,
-                             @RequestParam(value = "sort", required = false) String sort) {
+                             @RequestParam(value = "column", required = false) String column,
+                             @RequestParam(value = "order", required = false) String order) {
         todoService.deleteTodo(todoId);
 
-        // sortに文字が入っれいたらソート込みでリダイレクトする。
-        if (sort != null && !sort.isEmpty()) {
-            return "redirect:/nagomi?sort=" + sort;
+        // columnに文字が入っていたらソート込みでリダイレクトする。
+        if (column != null && !column.isEmpty()) {
+            return String.format("redirect:/nagomi?column=%s&order=%s", column, order);
         }
         
         return "redirect:/nagomi";
