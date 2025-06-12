@@ -1,40 +1,45 @@
-new Image().src = "/images/triangleleft_83849.png";
-op="/images/triangleleft_83849.png";
-cl="/images/triangledown_83849.png";
+
+op="/images/triangleleft_83849.png"; // 開いた状態の矢印
+cl="/images/triangledown_83849.png"; // 閉じた状態の矢印
 
 window.addEventListener("load", execFunction);
 
 function execFunction() {
-    console.log("hello")
-    if(!sessionStorage.getItem('isHide')) {
-        sessionStorage.setItem("isHide", false);
+    // セッション情報が登録されていなかったら
+    if(!sessionStorage.getItem('isOpen')) {
+        // trueで初期化する
+        sessionStorage.setItem("isOpen", false);
     } else {
-        var isHide = sessionStorage.getItem('isHide')
-        if (isHide == 'true') {
-            dd('折りたたみ指示B');
+        // 現在の表示非表示状態を取得
+        var isOpen = sessionStorage.getItem('isOpen')
+        // セッションに非表示フラグが有効だったら折りたたみ処理を実行する
+        if (isOpen == 'true') {
+            dd('折りたたみ');
         } else {
-
+            
         }
-        console.log(isHide)
     }
 }
 
 function dd(obj){
     if(document.getElementById)
-    {
+    {   
+        // クリックしたときに非表示状態だったら
         if (document.getElementById(obj).style.display == 'none') {
-            sessionStorage.setItem("isHide", false);
+            // true（表示状態）を設定
+            sessionStorage.setItem("isOpen", true);
+            document.getElementById(obj).style.display='';
         } else {
-            sessionStorage.setItem("isHide", true);
+            // false（非表示状態）を設定
+            sessionStorage.setItem("isOpen", false);
+            document.getElementById(obj).style.display='none';
         }
 
-        document.getElementById(obj)
-            .style.display=='none'?document.getElementById(obj)
-            .style.display='':document.getElementById(obj)
-            .style.display='none';
-        document.getElementById(obj+"i").src.indexOf('triangledown_83849')>0?
-        document.getElementById(obj+"i").src=op:
-        document.getElementById(obj+"i").src=cl
-
+        let obji = document.getElementById(obj+"i");
+        if (obji.src.indexOf('triangledown_83849') > 0) {
+            obji.src = op;
+        } else {
+            obji.src = cl;
+        }
     }
 }
