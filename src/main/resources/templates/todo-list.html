@@ -30,20 +30,14 @@
         <button type="submit">追加</button>
 
     </form>
-    <h3>やること [<span class="todo" th:text="${notCompletedTodos.size()}"></span>件 ]</h3>
-    <table class="my-table">
+    <h3>やること [<span th:text="${notCompletedTodos.size()}"></span>件 ]</h3>
+    <table class="todo-table">
         <thead>
             <tr>
-                <th><a th:href="@{nagomi}" class="fixed-width">完了</a></th>
-<<<<<<< HEAD
-                <th><a th:href="@{nagomi(sort=priority)}" class="fixed-width">優先度</a></th>
-                <th><a th:href="@{nagomi(sort=completion_date)}" class="fixed-width">予定日</a></th>
-                <th><a th:href="@{nagomi(sort=title)}" class="auto-width">タイトル</a></th>
-=======
-                <th><a th:href="@{nagomi(column=priority, order=${order})}" class="fixed-width">優先度</a></th>
-                <th><a th:href="@{nagomi(column=completion_date, order=${order})}" class="fixed-width">予定日</a></th>
-                <th><a th:href="@{nagomi(column=title, order=${order})}" class="fixed-width">タイトル</a></th>
->>>>>>> a6092f7303a4607cee1763d6dca35f1de06af593
+                <th class="fixed-width"><a th:href="@{nagomi}">完了</a></th>
+                <th class="fixed-width"><a th:href="@{nagomi(column=priority, order=${order})}">優先度</a></th>
+                <th class="fixed-width"><a th:href="@{nagomi(column=completion_date, order=${order})}">予定日</a></th>
+                <th class="auto-width"><a th:href="@{nagomi(column=title, order=${order})}">タイトル</a></th>
                 <th class="fixed-width">削除</th>
             </tr>
         </thead>
@@ -80,7 +74,7 @@
                     id="折りたたみi" style=" margin-right: 30px; width: 15px; height: 15px;" alt="三角印">Done[<span th:text="${completedTodos.size()}"></span>件]</h3>
         </div>
 
-        <table id="折りたたみ" class="my-table">
+        <table id="折りたたみ" class="done-table">
             <thead>
                 <tr class="auto-width">
                     <th class="fixed-width">完了</th>
