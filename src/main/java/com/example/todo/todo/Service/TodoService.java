@@ -1,7 +1,6 @@
 package com.example.todo.todo.Service;
 
 import java.util.List;
-import com.example.todo.todo.security.CustomUserDetailsService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
@@ -12,12 +11,11 @@ import com.example.todo.todo.security.CustomUserDetails;
 @Service
 public class TodoService {
 
-    private final CustomUserDetailsService customUserDetailsService;
+
     private final TodoRepository todoRepository;
 
-    public TodoService(TodoRepository todoRepository, CustomUserDetailsService customUserDetailsService) {
+    public TodoService(TodoRepository todoRepository) {
         this.todoRepository = todoRepository;
-        this.customUserDetailsService = customUserDetailsService;
     }
 
     public List<Todo> selectAllTodoByIdService(long userId, boolean isCompleted, String column, boolean isSort, String sort) {
