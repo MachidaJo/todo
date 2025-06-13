@@ -4,10 +4,13 @@
 <link rel="stylesheet" th:href="@{/css/login.css}">
 <body>
     <div th:replace="~{layout :: header}"></div>
+   <img src="\images\ume.png" alt="左側の美しい梅" class="left-image1">
     <div class="border">
     <h2>ログイン</h2>
-    <div th:if="${param.error}" style="color:red">
+    <div th:if="${param.error != null}" style="color:red">
         ユーザー名、またはパスワードに誤りがあります
+    </div>
+    <div th:text="${message}" style="color:green">
     </div>
     <form th:action="@{/login}" method="post">
         <div class="stuff">
@@ -41,6 +44,5 @@
     <label>
         <a th:href="@{/register}">新規登録はこちらから</a>
     </label>
-    <div th:replace="~{layout :: footer}"></div>
 </body>
 </html>

@@ -11,35 +11,18 @@ table {
     margin: 0 auto;
     border-collapse: collapse;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 50px;
+    margin-bottom: 10px;
 }
 
 label {
     font-size: 18px;
 }
 
-.fixed-width {
-    width: 100px;
-}
-
-.auto-width {}
-
 th,
 td {
     padding: 1px;
     border: 1px solid #ddd;
     text-align: center;
-}
-
-button {
-    padding: 5px 10px;
-    background-color: #599bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-    font-size: 16px;
-    transition: background-color 1.5;
 }
 
 input[type="text"] {
@@ -134,4 +117,98 @@ td img {
 .expired {
     color: red;
     font-weight: bold;
+}
+
+img[name="delete"] {
+    width: 40%;
+}
+
+.otukare {
+    margin-top: 0px;
+    padding-top: 0px;
+    background: linear-gradient(to right,#e60000,#f39800,#fff100,#009944,#0068b7,#1d2088,#920783,#e60000) 0 / 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+    animation: 1s rainbowAnimation linear infinite;
+}
+
+@keyframes rainbowAnimation {
+    100% { background-position: 200%; }
+}
+
+.happycat {
+    width: 10%;
+    background-repeat: repeat-x;
+}
+
+.fixed-width-title{
+    width: 400px;
+    position:relative;
+    padding:3px;
+    transition:all .2s;
+}
+
+.fixed-width-title a{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    color: inherit;
+    text-decoration: none
+}
+
+.fixed-width{
+    width: 100px;
+    position:relative;
+    padding:3px;
+    transition:all .2s;
+}
+
+.fixed-width a{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    color: inherit;
+    text-decoration: none
+}
+
+.sort-icon {
+    font-size: 24px;
+}
+
+.icon {
+    top : 10px;
+    left: 15%;
+    margin-right: 10px;
+    cursor: pointer;
+    height: 2%;
+    width: 2%;
+}
+
+ input[type="radio"] {
+            display: none;
+        }
+
+.addtask {
+    margin-left: 15%;
+}
+
+.sort-icon {
+    line-height: 25px;
+    position: absolute;
+    right: 0;
+    margin-right: 10px;
+}
+
+span[name="sort-off"] {
+    color:#a7a7a7;
+    transform: scaleX(2);
+}
+
+tbody {
+    line-break: anywhere;
 }

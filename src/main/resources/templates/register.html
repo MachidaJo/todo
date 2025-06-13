@@ -4,10 +4,20 @@
 <link rel="stylesheet" th:href="@{/css/login.css}">
 <body>
     <div th:replace="~{layout :: header}"></div>
+    <img src="\images\sakura.png" alt="左側の美しい桜" class="left-image2">
     <div class="border">
     <h2>新規登録</h2>
     <div th:if="${error}" style="color:red">
         ユーザー名は既に存在しています
+    </div>
+    <div th:if="${BlankError}" style="color:red">
+        ユーザー名とパスワードは必須です
+    </div>
+    <div th:if="${HasUserNameError}" style="color: red;">
+        ユーザー名は4～100文字以内です
+    </div>
+    <div th:if="${HasPasswordError}" style="color: red;">
+        パスワードは8～100文字以内です
     </div>
     <form th:action="@{/register}" th:object="${user}" method="post">
         <div class="stuff">
@@ -20,7 +30,7 @@
                 th:field="*{username}"
                 onkeyup="this.setAttribute('value', this.value);"
                 value="">
-            <label class="label">ユーザー名</label>
+            <label class="label">ユーザー名：4~100文字以内</label>
             <label class="error"></label>
         </div>
         <div class="textBox">
@@ -33,13 +43,12 @@
                 name="password"
                 onkeyup="this.setAttribute('value', this.value);"
                 value="">
-            <label class="label">パスワード</label>
+            <label class="label">パスワード：8~100文字以内</label>
             <label class="error"></label>
         </div>
     </div>
     <button class="login" type="submit">登録</button>
     </form>
     </div>
-    <div th:replace="~{layout :: footer}"></div>
 </body>
 </html>

@@ -14,7 +14,7 @@ public class SecurityConfig {
        http // ログインしていない状態でどのページにもアクセスできなくなる
             .authorizeHttpRequests(request -> request
             // リクエストの特定の条件に一致するかどうかを判定
-                .requestMatchers("/css/**", "/images/**", "/js/**", "/register/**", "/templates/**").permitAll()
+                .requestMatchers("/css/**", "/images/**", "/js/**", "/register/**").permitAll()
                 .anyRequest().authenticated())
             .formLogin(login -> login
                 // ログイン認証の送信先URL（POST送信）
@@ -24,7 +24,7 @@ public class SecurityConfig {
                 // 認証成功時に遷移するページ
                 .defaultSuccessUrl("/nagomi") 
                 // 認証失敗時に遷移するページ
-                .failureUrl("/login?error") 
+                .failureUrl("/login?error=true") 
                 // ログインページを認証不要でアクセス可能にする設定
                 .permitAll() 
             )

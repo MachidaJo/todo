@@ -8,7 +8,7 @@
 <body>
     <div th:fragment="header">
         <header style="background-color: #f8f8f8;">
-            <div class="icon">
+            <div class="icon1">
                 <img th:src="@{/images/todonagomi.png}" alt="TodoNagomiIcon">
             </div>
             <div class="right">
@@ -20,6 +20,11 @@
                 <button type="submit" name="logout">ログアウト</button>
                 </div>
             </form>
+            <form th:action="@{/login}" method="get">
+                <div th:if="${user} != null">
+                <button type="submit" name="login">ログイン</button>
+                </div>
+            </form> 
             </div>
         </header>
     </div>

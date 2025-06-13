@@ -20,7 +20,7 @@ public interface TodoMapper {
     List<Todo> selectAllTodoByIdAndCompletedFlag(long userId, boolean isCompleted);
 
     // 完了フラグに応じて取得、優先度で並び替え(ASC)
-    @Select("SELECT * FROM todo WHERE user_id = #{userId} AND completed = #{isCompleted} ORDER BY ${column} ${sort}")
+    @Select("SELECT * FROM todo WHERE user_id = #{userId} AND completed = #{isCompleted} ORDER BY ${column} ${sort} NULLS LAST")
     List <Todo> selectAllTodoByIdAndCompletedFlagAndColumnSort(long userId, boolean isCompleted, String column, String sort);
 
     // 一件削除

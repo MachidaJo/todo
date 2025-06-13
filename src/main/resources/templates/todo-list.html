@@ -13,97 +13,204 @@
     <!-- Doneリストを折りたたむJS -->
     <script th:src="@{/js/reload.js}"></script>
     <!-- スクロール位置を復元するJS -->
+    <script th:src="@{/js/icon.js}"></script>
+    <!-- アイコン関連のJS -->
 
     <div th:replace="~{layout :: header}"></div>
-    <form th:action="@{nagomi/new(sort=${sort})}" th:object="${todo}" method="post">
+    <form th:action="@{nagomi/new(column=${column}, order=${order})}" th:object="${todo}" method="post">
         <label for="todo">新しいタスクを追加：</label>
         <input type="text" id="todo" name="todo" th:field="*{title}" required>
+        <br>
         <label for="todo">完了予定日を入力：</label>
         <input type="date" name="todo" th:field="*{completionDate}" min="0001-01-01" max="9999-12-31">
-        <label><input type="radio" name="priority" value=4 th:field="*{priority}">無</label>
-        <label><input type="radio" name="priority" value=1 th:field="*{priority}">高</label>
-        <label><input type="radio" name="priority" value=2 th:field="*{priority}">中</label>
-        <label><input type="radio" name="priority" value=3 th:field="*{priority}">低</label>
+        <input type="radio" name="priority" value=1 th:field="*{priority}"><img th:src="@{/images/null.png}" class="icon" data-value="1" onclick="selectPriority(this)">
+        <input type="radio" name="priority" value=2 th:field="*{priority}"><img th:src="@{/images/low.png}" class="icon"  data-value="2" onclick="selectPriority(this)">
+        <input type="radio" name="priority" value=3 th:field="*{priority}"><img th:src="@{/images/medium.png}" class="icon"  data-value="3" onclick="selectPriority(this)">
+        <input type="radio" name="priority" value=4 th:field="*{priority}"><img th:src="@{/images/high.png}" class="icon"  data-value="4" onclick="selectPriority(this)">
 
-        <button type="submit">追加</button>
+        <button type="submit" class="addtask">追加</button>
 
     </form>
-    <h3>ToDo[<span th:text="${notCompletedTodos.size()}"></span>件]</h3>
-    <table>
+    <h3>やること [<span th:text="${notCompletedTodos.size()}"></span>件 ]</h3>
+    <table class="todo-table">
         <thead>
             <tr>
-                <th><a th:href="@{nagomi}" class="fixed-width">完了</a></th>
-                <th><a th:href="@{nagomi(sort=priority)}" class="fixed-width">優先度</a></th>
-                <th><a th:href="@{nagomi(sort=completion_date)}" class="fixed-width">予定日</a></th>
-                <th><a th:href="@{nagomi(sort=title)}" class="auto-width">タイトル</a></th>
+                <th class="fixed-width">完了</th>
+                <th class="fixed-width">
+                    <div class="table-header">
+                        <span>
+                            優先度
+                        </span>
+                        <a th:if="${column}!=null" th:href="@{nagomi(column=priority, order=asc)}">
+                            <span th:if="${column} != priority" class="sort-icon" name="sort-off">-
+                            </span>
+                        </a>
+                        <a th:if="${column} == priority and ${order} == asc" th:href="@{nagomi(column=priority, order=desc)}">
+                            <span class="sort-icon">↑</span>
+                        </a>
+                        <a th:if="${column} == priority and ${order} == desc" th:href="@{nagomi}">
+                            <span class="sort-icon">↓</span>
+                        </a>
+                    </div>
+                </th>
+                <th class="fixed-width">
+                    <div class="table-header">
+                        <span>
+                            予定日
+                        </span>
+                        <a th:if="${column}!=null" th:href="@{nagomi(column=completion_date, order=asc)}">
+                            <span th:if="${column} != completion_date" class="sort-icon" name="sort-off">-
+                            </span>
+                        </a>
+                        <a th:if="${column} == completion_date and ${order} == asc" th:href="@{nagomi(column=completion_date, order=desc)}">
+                            <span class="sort-icon">↑</span>
+                        </a>
+                        <a th:if="${column} == completion_date and ${order} == desc" th:href="@{nagomi}">
+                            <span class="sort-icon">↓</span>
+                        </a>
+                    </div>
+                </th>
+                <th class="fixed-width-title">
+                    <div class="table-header">
+                        <span>
+                            タイトル
+                        </span>
+                        <a th:if="${column}!=null" th:href="@{nagomi(column=title, order=asc)}">
+                            <span th:if="${column} != title" class="sort-icon" name="sort-off">-
+                            </span>
+                        </a>
+                        <a th:if="${column} == title and ${order} == asc" th:href="@{nagomi(column=title, order=desc)}">
+                            <span class="sort-icon">↑</span>
+                        </a>
+                        <a th:if="${column} == title and ${order} == desc" th:href="@{nagomi}">
+                            <span class="sort-icon">↓</span>
+                        </a>
+                    </div>
+                </th>
                 <th class="fixed-width">削除</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="todo : ${notCompletedTodos}">
                 <td>
-                    <form th:action="@{nagomi/{todoId}/complete(todoId=${todo.todoId})}" method="post">
+                    <form th:action="@{nagomi/{todoId}/complete(todoId=${todo.todoId}, column=${column}, order=${order})}" method="post">
                         <input type="checkbox" name="todoid" th:value="${todo.todoId}" onchange="this.form.submit()">
                     </form>
                 </td>
                 <td>
-                    <img th:src="@{/images/high.png}" th:if="${todo.priority == 1}" alt=1 title="高" />
-                    <img th:src="@{/images/medium.png}" th:if="${todo.priority == 2}" alt="2" title="中" />
-                    <img th:src="@{/images/low.png}" th:if="${todo.priority == 3}" alt=3 title="低" />
-                    <img th:src="@{/images/null.png}" th:if="${todo.priority == 4}" alt=4 title="無" />
+                    <img th:src="@{/images/high.png}" th:if="${todo.priority == 4}" alt=4 title="高" />
+                    <img th:src="@{/images/medium.png}" th:if="${todo.priority == 3}" alt=3 title="中" />
+                    <img th:src="@{/images/low.png}" th:if="${todo.priority == 2}" alt=2 title="低" />
+                    <img th:src="@{/images/null.png}" th:if="${todo.priority == 1}" alt=1 title="無" />
                     <!-- 優先度のアイコン表示 -->
                 </td>
-                <td th:text="${todo.completionDate}" class="date" ></td>
-                <td th:text="${todo.title}"
-                    >
+                <td th:text="${todo.completionDate} ?: '-'" class="date" ></td>
+                <td th:text="${todo.title}">
                 </td>
-
                 <td>
-                    <form th:action="@{/nagomi/{todoId}/delete(todoId=${todo.todoId}, sort=${sort})}" method="post">
-                        <button type="submit">削除</button>
+                    <form th:action="@{/nagomi/{todoId}/delete(todoId=${todo.todoId}, column=${column}, order=${order})}" method="post">
+                        <button type="submit">
+                            <img th:src="@{/images/delete.png}" name="delete">
+                        </button>
                     </form>
                 </td>
             </tr>
         </tbody>
     </table>
+
+    <!-- HappyCats集団 -->
+    <th:block th:if="${notCompletedTodos.size() == 0}">
+        <h3 class="otukare">本日もお疲れさまでした</h3>
+        <img class="happycat" th:src="@{/images/happy-cat-happy-happy-cat.gif}" alt="ハッピー猫1">
+    </th:block>
+
     <div id="折りたたみB">
         <div class="image-text-container">
-            <h3 href="javascript:void(0)" onclick="dd('折りたたみ指示B')"><img src="/images/triangleleft_83849.png"
-                    id="折りたたみ指示Bi" style=" margin-right: 30px; 
-    width: 15px; height: 15px;" alt="三角印">Done[<span th:text="${completedTodos.size()}"></span>件]</h3>
+            <h3 href="javascript:void(0)" onclick="dd('折りたたみ')"><img src="/images/triangledown_83849.png"
+                    id="折りたたみi" style=" margin-right: 30px; width: 15px; height: 15px;" alt="三角印">成したこと[<span th:text="${completedTodos.size()}"></span>件]</h3>
         </div>
 
-        <table id="折りたたみ指示B">
+        <table id="折りたたみ" style="display: none">
             <thead>
-                <tr>
+                <tr class="auto-width">
                     <th class="fixed-width">完了</th>
-                    <th class="fixed-width">優先度</th>
-                    <th class="fixed-width">完了日</th>
-                    <th class="auto-width">タイトル</th>
+                    <th class="fixed-width">
+                        <div class="table-header">
+                            <span>
+                                優先度
+                            </span>
+                            <a th:if="${column}!=null" th:href="@{nagomi(column=priority, order=asc)}">
+                                <span th:if="${column} != priority" class="sort-icon" name="sort-off">-
+                                </span>
+                            </a>
+                            <a th:if="${column} == priority and ${order} == asc" th:href="@{nagomi(column=priority, order=desc)}">
+                                <span class="sort-icon">↑</span>
+                            </a>
+                            <a th:if="${column} == priority and ${order} == desc" th:href="@{nagomi}">
+                                <span class="sort-icon">↓</span>
+                            </a>
+                        </div>
+                    </th>
+                    <th class="fixed-width">
+                        <div class="table-header">
+                            <span>
+                                完了日
+                            </span>
+                            <a th:if="${column}!=null" th:href="@{nagomi(column=completion_date, order=asc)}">
+                                <span th:if="${column} != completion_date" class="sort-icon" name="sort-off">-
+                                </span>
+                            </a>
+                            <a th:if="${column} == completion_date and ${order} == asc" th:href="@{nagomi(column=completion_date, order=desc)}">
+                                <span class="sort-icon">↑</span>
+                            </a>
+                            <a th:if="${column} == completion_date and ${order} == desc" th:href="@{nagomi}">
+                                <span class="sort-icon">↓</span>
+                            </a>
+                        </div>
+                    </th>
+                    <th class="fixed-width-title">
+                        <div class="table-header">
+                            <span>
+                                タイトル
+                            </span>
+                            <a th:if="${column}!=null" th:href="@{nagomi(column=title, order=asc)}">
+                                <span th:if="${column} != title" class="sort-icon" name="sort-off">-
+                                </span>
+                            </a>
+                            <a th:if="${column} == title and ${order} == asc" th:href="@{nagomi(column=title, order=desc)}">
+                                <span class="sort-icon">↑</span>
+                            </a>
+                            <a th:if="${column} == title and ${order} == desc" th:href="@{nagomi}">
+                                <span class="sort-icon">↓</span>
+                            </a>
+                        </div>
+                    </th>
                     <th class="fixed-width">削除</th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="todo : ${completedTodos}">
                     <td>
-                        <form th:action="@{nagomi/{todoId}/deComplete(todoId=${todo.todoId}, sort=${sort})}" method="post">
+                        <form th:action="@{nagomi/{todoId}/deComplete(todoId=${todo.todoId}, column=${column}, order=${order})}" method="post">
                             <input type="checkbox" name="todoId" th:value="${todoId}" checked
                                 onchange="this.form.submit()">
                         </form>
                     </td>
                     <td>
-                        <img th:src="@{/images/high.png}" th:if="${todo.priority == 1}" alt=1 title="高" />
-                        <img th:src="@{/images/medium.png}" th:if="${todo.priority == 2}" alt="2" title="中" />
-                        <img th:src="@{/images/low.png}" th:if="${todo.priority == 3}" alt=3 title="低" />
-                        <img th:src="@{/images/null.png}" th:if="${todo.priority == 4}" alt=4 title="無" />
+                        <img th:src="@{/images/high.png}" th:if="${todo.priority == 4}" alt=4 title="高" />
+                        <img th:src="@{/images/medium.png}" th:if="${todo.priority == 3}" alt=3 title="中" />
+                        <img th:src="@{/images/low.png}" th:if="${todo.priority == 2}" alt=2 title="低" />
+                        <img th:src="@{/images/null.png}" th:if="${todo.priority == 1}" alt=1 title="無" />
                     </td>
-                    <td th:text="${todo.completionDate}" class="date"></td>
+                    <td th:text="${todo.completionDate} ?: '-'" class="date"></td>
                     <td th:text="${todo.title}" th:classappend="${todo.completed ? 'completed' : ''}"></td>
                     <!-- 完了したタスクに斜線を引く -->
                     <td>
-                        <form th:action="@{/nagomi/{todoId}/delete(todoId=${todo.todoId}, sort=${sort})}" method="post">
-                            <button type="submit">削除</button>
-                        </form>
+                    <form th:action="@{/nagomi/{todoId}/delete(todoId=${todo.todoId}, column=${column}, order=${order})}" method="post">
+                        <button type="submit">
+                            <img th:src="@{/images/delete.png}" name="delete">
+                        </button>
+                    </form>
                     </td>
                 </tr>
             </tbody>
