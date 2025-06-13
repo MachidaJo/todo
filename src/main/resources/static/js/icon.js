@@ -40,10 +40,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // 画像の名前を返す関数
     function getPriorityImage(value, isSelected) {
         switch (value) {
-            case "1": return isSelected ? "highMAX.png" : "high.png";
-            case "2": return isSelected ? "mediumMAX.png" : "medium.png";
-            case "3": return isSelected ? "lowMAX.png" : "low.png";
-            case "4": return isSelected ? "nullMAX.png" : "null.png";
+            case "1": return isSelected ? "nullMAX.png" : "null.png";
+            case "2": return isSelected ? "lowMAX.png" : "low.png";
+            case "3": return isSelected ? "mediumMAX.png" : "medium.png";
+            case "4": return isSelected ? "highMAX.png" : "high.png";
             default: return "";
         }
     }

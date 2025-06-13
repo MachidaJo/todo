@@ -142,13 +142,14 @@ img[name="delete"] {
     background-repeat: repeat-x;
 }
 
-.auto-width {
+.fixed-width-title{
+    width: 400px;
     position:relative;
     padding:3px;
     transition:all .2s;
 }
 
-.auto-width a{
+.fixed-width-title a{
     position:absolute;
     top:0;
     left:0;
@@ -159,7 +160,7 @@ img[name="delete"] {
 }
 
 .fixed-width{
-    width: 90px;
+    width: 100px;
     position:relative;
     padding:3px;
     transition:all .2s;
@@ -176,7 +177,7 @@ img[name="delete"] {
 }
 
 .sort-icon {
-    width: 20px;
+    font-size: 24px;
 }
 
 .icon {
@@ -194,4 +195,20 @@ img[name="delete"] {
 
 .addtask {
     margin-left: 15%;
+}
+
+.sort-icon {
+    line-height: 25px;
+    position: absolute;
+    right: 0;
+    margin-right: 10px;
+}
+
+span[name="sort-off"] {
+    color:#a7a7a7;
+    transform: scaleX(2);
+}
+
+tbody {
+    line-break: anywhere;
 }
