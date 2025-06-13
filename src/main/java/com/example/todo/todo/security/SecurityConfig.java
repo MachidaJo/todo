@@ -24,7 +24,7 @@ public class SecurityConfig {
                 // 認証成功時に遷移するページ
                 .defaultSuccessUrl("/nagomi") 
                 // 認証失敗時に遷移するページ
-                .failureUrl("/error") 
+                .failureUrl("/login?error=true") 
                 // ログインページを認証不要でアクセス可能にする設定
                 .permitAll() 
             )

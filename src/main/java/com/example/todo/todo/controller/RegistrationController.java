@@ -29,12 +29,18 @@ public class RegistrationController {
         if (user.getUsername().isBlank() || user.getPassword().isBlank()) {
             model.addAttribute("BlankError", "ユーザー名とパスワードは必須です");
             return "register";
+        } else if (user.getUsername().length() < 4 || user.getUsername().length() > 100){
+            model.addAttribute("HasUserNameError", "ユーザー名は4~100文字以内です");
+            return "register";
+        } else if (user.getPassword().length() < 8 || user.getPassword().length() > 100){
+            model.addAttribute("HasPasswordError", "パスワードは8~100文字以内です");
+            return "register";
         }
         
         try {
             userService.createUser(user);
             // 登録成功時リダイレクト
-            return "redirect:/login?register";
+            return "login";
         } catch (IllegalArgumentException e) {
             model.addAttribute("error", e.getMessage());
             // エラー時再表示
