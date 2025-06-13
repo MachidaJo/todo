@@ -10,6 +10,8 @@
     <div th:if="${param.error != null}" style="color:red">
         ユーザー名、またはパスワードに誤りがあります
     </div>
+    <div th:text="${message}" style="color:green">
+    </div>
     <form th:action="@{/login}" method="post">
         <div class="stuff">
         <div class="textBox">
