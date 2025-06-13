@@ -7,7 +7,6 @@
     <img src="\images\left.take.png" alt="左側の美しい竹" class="left-image">
     <img src="\images\right.take.png" alt="右側の美しい竹" class="right-image">
 
-    <!-- <script th:src="@{/js/table.js}"></script> -->
     <!-- 上下のテーブルで幅を合わせる -->
     <script th:src="@{/js/expiration.js}"></script>
     <!-- 期限切れの予定日を赤く色づけするJS -->
@@ -40,13 +39,13 @@
                 <th class="fixed-width"><a th:href="@{nagomi}">完了</a></th>
                 <th class="fixed-width">
                     <a th:if="${column} != null" th:href="@{nagomi(column=priority, order=asc)}">
-                        優先度<img th:if="${column} != priority" class="sort-icon" name ="sort-off" src="/images/sort-off.png" alt="ソートのアイコン">
+                        <span th:if="${column} != priority" class="sort-icon" name ="sort-off">優先度-</span>
                     </a>
                     <a th:if="${column} == priority and ${order} == asc" th:href="@{nagomi(column=priority, order=desc)}">
-                        　　　<img class="sort-icon" name ="sort-desc" src="/images/asc.png" alt="ソートのアイコン">
+                        <img class="sort-icon" name ="sort-desc" src="/images/asc.png" alt="ソートのアイコン">
                     </a>
                     <a th:if="${column} == priority and ${order} == desc" th:href="@{nagomi}">
-                        　　　<img class="sort-icon" name ="sort-asc" src="/images/desc.png" alt="ソートのアイコン">
+                        <img class="sort-icon" name ="sort-asc" src="/images/desc.png" alt="ソートのアイコン">
                     </a>
                 </th>
                 <th class="fixed-width">
@@ -122,7 +121,7 @@
                     id="折りたたみi" style=" margin-right: 30px; width: 15px; height: 15px;" alt="三角印">Done[<span th:text="${completedTodos.size()}"></span>件]</h3>
         </div>
 
-        <table id="折りたたみ" class="done-table">
+        <table id="折りたたみ" style="display: none">
             <thead>
                 <tr class="auto-width">
                     <th class="fixed-width">完了</th>
