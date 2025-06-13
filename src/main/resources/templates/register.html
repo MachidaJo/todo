@@ -13,6 +13,12 @@
     <div th:if="${BlankError}" style="color:red">
         ユーザー名とパスワードは必須です
     </div>
+    <div th:if="${HasUserNameError}" style="color: red;">
+        ユーザー名は4～100文字以内です
+    </div>
+    <div th:if="${HasPasswordError}" style="color: red;">
+        パスワードは8～100文字以内です
+    </div>
     <form th:action="@{/register}" th:object="${user}" method="post">
         <div class="stuff">
         <div class="textBox">
@@ -24,7 +30,7 @@
                 th:field="*{username}"
                 onkeyup="this.setAttribute('value', this.value);"
                 value="">
-            <label class="label">ユーザー名</label>
+            <label class="label">ユーザー名：4~100文字以内</label>
             <label class="error"></label>
         </div>
         <div class="textBox">
@@ -37,7 +43,7 @@
                 name="password"
                 onkeyup="this.setAttribute('value', this.value);"
                 value="">
-            <label class="label">パスワード</label>
+            <label class="label">パスワード：8~100文字以内</label>
             <label class="error"></label>
         </div>
     </div>

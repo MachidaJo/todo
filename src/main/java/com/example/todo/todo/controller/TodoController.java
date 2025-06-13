@@ -46,7 +46,7 @@ public class TodoController {
         // formに使うTodoObjectを渡す。
         Todo todo = new Todo();
         // Todoの優先度の初期値を4にする。
-        todo.setPriority(4);
+        todo.setPriority(1);
 
         model.addAttribute("notCompletedTodos", notCompletedTodos);
         model.addAttribute("completedTodos", completedTodos);
