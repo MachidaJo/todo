@@ -36,38 +36,56 @@
     <table class="todo-table">
         <thead>
             <tr>
-                <th class="fixed-width"><a th:href="@{nagomi}">完了</a></th>
+                <th class="fixed-width">完了</th>
                 <th class="fixed-width">
                     <a th:if="${column} != null" th:href="@{nagomi(column=priority, order=asc)}">
-                        <span th:if="${column} != priority" class="sort-icon" name ="sort-off">優先度-</span>
+                        <span th:if="${column} != priority" class="table-title" name ="sort-off">優先度
+                            <span class="sort-icon">-</span>
+                        </span>
                     </a>
                     <a th:if="${column} == priority and ${order} == asc" th:href="@{nagomi(column=priority, order=desc)}">
-                        <img class="sort-icon" name ="sort-desc" src="/images/asc.png" alt="ソートのアイコン">
+                         <span class="table-title" name ="sort-asc">優先度
+                            <span class="sort-icon">↑</span>
+                        </span>
                     </a>
                     <a th:if="${column} == priority and ${order} == desc" th:href="@{nagomi}">
-                        <img class="sort-icon" name ="sort-asc" src="/images/desc.png" alt="ソートのアイコン">
+                         <span class="table-title" name ="sort-desc">優先度
+                            <span class="sort-icon">↓</span>
+                        </span>
                     </a>
                 </th>
                 <th class="fixed-width">
                     <a th:if="${column}!=null" th:href="@{nagomi(column=completion_date, order=asc)}">
-                        予定日<img class="sort-icon" name ="sort-off" src="/images/sort-off.png" alt="ソートのアイコン">
+                        <span th:if="${column} != completion_date" class="table-title" name ="sort-off">予定日
+                            <span class="sort-icon">-</span>
+                        </span>
                     </a>
                     <a th:if="${column} == completion_date and ${order} == asc" th:href="@{nagomi(column=completion_date, order=desc)}">
-                        　　　<img class="sort-icon" name ="sort-desc" src="/images/asc.png" alt="ソートのアイコン">
+                        <span class="table-title" name ="sort-asc">予定日
+                            <span class="sort-icon">↑</span>
+                        </span>
                     </a>
                     <a th:if="${column} == completion_date and ${order} == desc" th:href="@{nagomi}">
-                        　　　<img class="sort-icon" name ="sort-asc" src="/images/desc.png" alt="ソートのアイコン">
+                        <span class="table-title" name ="sort-desc">予定日
+                            <span class="sort-icon">↓</span>
+                        </span>
                     </a>
                 </th>
                 <th class="auto-width">
                     <a th:if="${column}!=null" th:href="@{nagomi(column=title, order=asc)}">
-                        タイトル<img class="sort-icon" name ="sort-off" src="/images/sort-off.png" alt="ソートのアイコン">
+                        <span th:if="${column} != title" class="table-title" name ="sort-off">タイトル
+                            <span class="sort-icon">-</span>
+                        </span>
                     </a>
                     <a th:if="${column} == title and ${order} == asc" th:href="@{nagomi(column=title, order=desc)}">
-                        　　　<img class="sort-icon" name ="sort-desc" src="/images/asc.png" alt="ソートのアイコン">
+                        <span class="table-title" name ="sort-asc">タイトル
+                            <span class="sort-icon">↑</span>
+                        </span>
                     </a>
                     <a th:if="${column} == title and ${order} == desc" th:href="@{nagomi}">
-                        　　　<img class="sort-icon" name ="sort-asc" src="/images/desc.png" alt="ソートのアイコン">
+                        <span class="table-title" name ="sort-desc">タイトル
+                            <span class="sort-icon">↓</span>
+                        </span>
                     </a>
                 </th>
                 <th class="fixed-width">削除</th>
@@ -125,10 +143,58 @@
             <thead>
                 <tr class="auto-width">
                     <th class="fixed-width">完了</th>
-                    <th class="fixed-width">優先度</th>
-                    <th class="fixed-width">完了日</th>
-                    <th class="auto-width">タイトル</th>
-                    <th class="fixed-width">削除</th>
+                <th class="fixed-width">
+                    <a th:if="${column} != null" th:href="@{nagomi(column=priority, order=asc)}">
+                        <span th:if="${column} != priority" class="table-title" name ="sort-off">優先度
+                            <span class="sort-icon">-</span>
+                        </span>
+                    </a>
+                    <a th:if="${column} == priority and ${order} == asc" th:href="@{nagomi(column=priority, order=desc)}">
+                         <span class="table-title" name ="sort-asc">優先度
+                            <span class="sort-icon">↑</span>
+                        </span>
+                    </a>
+                    <a th:if="${column} == priority and ${order} == desc" th:href="@{nagomi}">
+                         <span class="table-title" name ="sort-desc">優先度
+                            <span class="sort-icon">↓</span>
+                        </span>
+                    </a>
+                </th>
+                <th class="fixed-width">
+                    <a th:if="${column}!=null" th:href="@{nagomi(column=completion_date, order=asc)}">
+                        <span th:if="${column} != completion_date" class="table-title" name ="sort-off">完了日
+                            <span class="sort-icon">-</span>
+                        </span>
+                    </a>
+                    <a th:if="${column} == completion_date and ${order} == asc" th:href="@{nagomi(column=completion_date, order=desc)}">
+                        <span class="table-title" name ="sort-asc">完了日
+                            <span class="sort-icon">↑</span>
+                        </span>
+                    </a>
+                    <a th:if="${column} == completion_date and ${order} == desc" th:href="@{nagomi}">
+                        <span class="table-title" name ="sort-desc">完了日
+                            <span class="sort-icon">↓</span>
+                        </span>
+                    </a>
+                </th>
+                <th class="auto-width">
+                    <a th:if="${column}!=null" th:href="@{nagomi(column=title, order=asc)}">
+                        <span th:if="${column} != title" class="table-title" name ="sort-off">タイトル
+                            <span class="sort-icon">-</span>
+                        </span>
+                    </a>
+                    <a th:if="${column} == title and ${order} == asc" th:href="@{nagomi(column=title, order=desc)}">
+                        <span class="table-title" name ="sort-asc">タイトル
+                            <span class="sort-icon">↑</span>
+                        </span>
+                    </a>
+                    <a th:if="${column} == title and ${order} == desc" th:href="@{nagomi}">
+                        <span class="table-title" name ="sort-desc">タイトル
+                            <span class="sort-icon">↓</span>
+                        </span>
+                    </a>
+                </th>
+                <th class="fixed-width">削除</th>
                 </tr>
             </thead>
             <tbody>
@@ -149,9 +215,11 @@
                     <td th:text="${todo.title}" th:classappend="${todo.completed ? 'completed' : ''}"></td>
                     <!-- 完了したタスクに斜線を引く -->
                     <td>
-                        <form th:action="@{/nagomi/{todoId}/delete(todoId=${todo.todoId}, column=${column}, order=${order})}" method="post">
-                            <button type="submit">削除</button>
-                        </form>
+                    <form th:action="@{/nagomi/{todoId}/delete(todoId=${todo.todoId}, column=${column}, order=${order})}" method="post">
+                        <button type="submit">
+                            <img th:src="@{/images/delete.png}" name="delete">
+                        </button>
+                    </form>
                     </td>
                 </tr>
             </tbody>
